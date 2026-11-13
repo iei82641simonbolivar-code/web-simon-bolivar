@@ -90,3 +90,50 @@
   .hero-photo {min-height:245px;aspect-ratio:4/3;border-radius:18px;}
   .hero .actions .btn {width:100%;}
 }
+
+/* ESTILO INSTITUCIONAL - SECCIÓN NOSOTROS */
+
+#nosotros {
+  background: linear-gradient(
+    135deg,
+    #EAF3FA 0%,
+    #DCEBF7 100%
+  );
+}
+
+#nosotros .heading h2 {
+  color: #102A4D;
+}
+
+#nosotros .heading p {
+  color: #405C74;
+}
+
+#nosotros .card {
+  background: #FFFFFF;
+  border: 1px solid #D4E3EF;
+  border-top: 4px solid #E1B35C;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(16, 42, 77, 0.08);
+  transition: transform 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+#nosotros .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(16, 42, 77, 0.14);
+}
+
+#nosotros .card h3 {
+  color: #102A4D;
+}
+
+#nosotros .card p {
+  color: #405C74;
+}
+
+#nosotros .facts span {
+  background: #FFFFFF;
+  border-color: #CBDDEB;
+  color: #205B91;
+}
