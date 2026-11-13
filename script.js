@@ -45,15 +45,38 @@ document.querySelectorAll('.gallery-card').forEach(card => card.addEventListener
 document.getElementById('close-dialog').addEventListener('click', () => lightbox.close());
 lightbox.addEventListener('click', e => { if(e.target===lightbox) lightbox.close(); });
 
-const number = String(cfg.whatsappNumber || '').replace(/\D/g,'');
-if(number) {
-  const url = `https://wa.me/${number}?text=${encodeURIComponent(cfg.whatsappMessage || 'Hola')}`;
-  for(const id of ['wa-button', 'wa-float']){
-    const a = document.getElementById(id); a.href=url; a.target='_blank'; a.rel='noopener noreferrer';
-    a.classList.remove('disabled'); a.removeAttribute('aria-disabled'); a.removeAttribute('tabindex');
+// PUBLICACIONES OFICIALES: desde noticias.json, incrustadas por app.py.
+// No se insertan textos HTML de terceros: todo contenido se escribe con textContent.
+(function () {
+  const root = document.getElementById('news-results');
+  const empty = document.getElementById('news-empty');
+  const search = document.getElementById('news-search');
+  const filters = document.querySelectorAll('.news-filter');
+  if (!root || !empty || !search) return;
+  const records = Array.isArray(window.__NOTICIAS__) ? window.__NOTICIAS__ : [];
+  let active = 'todos';
+  const labels = {comunicado:'Comunicado', actividad:'Actividad', documento:'Documento'};
+  function make(tag, className, text){const node = document.createElement(tag);if(className)node.className=className;if(text !== undefined)node.textContent=text;return node;}
+  function validUrl(value){if(typeof value !== 'string' || !value.trim())return null;try {const url=new URL(value,window.location.href);return ['https:','http:'].includes(url.protocol)?url.href:null;}catch(e){return null;}}
+  function draw(){
+    const q=search.value.trim().toLocaleLowerCase('es');
+    const found=records.filter(item=>item && typeof item==='object' && item.publicado===true && labels[item.tipo] && typeof item.titulo==='string' && item.titulo.trim()).filter(item=>(active==='todos'||item.tipo===active)&&[item.titulo,item.resumen,item.fecha].join(' ').toLocaleLowerCase('es').includes(q)).sort((a,b)=>String(b.fecha||'').localeCompare(String(a.fecha||'')));
+    root.replaceChildren();empty.hidden=found.length>0;
+    empty.textContent=records.some(i=>i && i.publicado===true) ? 'No se encontraron publicaciones con esos filtros.' : 'Conoce las últimas novedades del colegio en su página de Facebook.';
+    found.forEach(item=>{
+      const card=make('article','card news-item');
+      card.appendChild(make('span','news-category',labels[item.tipo]));
+      if(typeof item.fecha==='string' && /^\d{4}-\d{2}-\d{2}$/.test(item.fecha)){
+        const time=make('time','',item.fecha.split('-').reverse().join('/'));time.dateTime=item.fecha;card.appendChild(time);
+      }
+      card.appendChild(make('h3','',item.titulo));
+      if(item.resumen)card.appendChild(make('p','',String(item.resumen)));
+      const safe=validUrl(item.enlace);
+      if(safe){const link=make('a','','Abrir publicación ↗');link.href=safe;link.target='_blank';link.rel='noopener noreferrer';card.appendChild(link);}
+      root.appendChild(card);
+    });
   }
-  document.getElementById('wa-button').textContent = 'Consultar por WhatsApp ↗';
-  document.getElementById('wa-float').title = 'Abrir WhatsApp';
-  document.getElementById('wa-float').setAttribute('aria-label','Abrir WhatsApp');
-  document.getElementById('wa-description').textContent = 'Escríbenos al WhatsApp institucional. Si WAHA y n8n están conectados al número, recibirás atención automatizada.';
-}
+  filters.forEach(b=>b.addEventListener('click',()=>{active=b.dataset.kind;filters.forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b));});draw();}));
+  if(!records.some(i=>i && i.publicado===true)){ const toolbar=document.querySelector('.news-toolbar'); if(toolbar) toolbar.hidden=true; }
+  search.addEventListener('input',draw);draw();
+})();
