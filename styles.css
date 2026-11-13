@@ -376,3 +376,75 @@
     transition: none;
   }
 }
+
+/* ====================================
+   TARJETAS CELESTES - SIMÓN BOLÍVAR
+   ==================================== */
+
+:root {
+  --celeste-tarjetas: #E8F5FC;
+  --borde-celeste: #BEDBED;
+}
+
+/* Todas las tarjetas informativas */
+#nosotros .card,
+#niveles .card,
+#matricula .card:not(.dark),
+#noticias .card,
+#contacto .card {
+  background: var(--celeste-tarjetas);
+  border: 1px solid var(--borde-celeste);
+  border-top: 4px solid #E1B35C;
+}
+
+/* Etiquetas de datos institucionales */
+#nosotros .facts span {
+  background: var(--celeste-tarjetas);
+  border-color: var(--borde-celeste);
+}
+
+/* Preguntas frecuentes */
+#matricula .faq,
+#preguntas .faq {
+  background: var(--celeste-tarjetas);
+}
+
+/* Botones para filtrar ambientes */
+#ambientes .filter {
+  background: var(--celeste-tarjetas);
+  color: #102A4D;
+  border-color: var(--borde-celeste);
+}
+
+#ambientes .filter.active {
+  background: #E1B35C;
+  border-color: #E1B35C;
+}
+
+/* Tarjetas de galería sin fotografía */
+#ambientes .gallery-card:not(.with-photo) {
+  background: var(--celeste-tarjetas);
+}
+
+/* Mantener tarjetas importantes oscuras */
+#matricula .card.dark {
+  background: #102A4D;
+  color: #FFFFFF;
+}
+
+/* Títulos y textos legibles */
+#nosotros .card h3,
+#niveles .card h3,
+#matricula .card h3,
+#noticias .card h3,
+#contacto .card h3 {
+  color: #102A4D;
+}
+
+#nosotros .card p,
+#niveles .card p,
+#matricula .card:not(.dark) p,
+#noticias .card p,
+#contacto .card p {
+  color: #405C74;
+}
