@@ -137,3 +137,45 @@
   border-color: #CBDDEB;
   color: #205B91;
 }
+
+/* FONDO AZUL INSTITUCIONAL - NOSOTROS */
+
+#nosotros {
+  background: linear-gradient(
+    135deg,
+    #205B91 0%,
+    #102A4D 100%
+  );
+}
+
+#nosotros .eyebrow,
+#nosotros .heading .eyebrow {
+  color: #E1B35C;
+}
+
+#nosotros .heading h2 {
+  color: #FFFFFF;
+}
+
+#nosotros .heading p {
+  color: #F1F5FA;
+}
+
+#nosotros .card {
+  background: #FFFFFF;
+  border-top: 4px solid #E1B35C;
+}
+
+#nosotros .card h3 {
+  color: #102A4D;
+}
+
+#nosotros .card p {
+  color: #405C74;
+}
+
+#nosotros .facts span {
+  background: #FFFFFF;
+  color: #205B91;
+  border-color: #D4E3EF;
+}
