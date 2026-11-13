@@ -179,3 +179,200 @@
   color: #205B91;
   border-color: #D4E3EF;
 }
+
+/* ==========================================
+   IDENTIDAD VISUAL INSTITUCIONAL
+   I.E. 82641 SIMÓN BOLÍVAR
+   ========================================== */
+
+:root {
+  --navy: #102A4D;
+  --blue: #205B91;
+  --sky: #DCEFFA;
+  --gold: #E1B35C;
+  --ink: #102A4D;
+  --gray: #405C74;
+  --line: #AFCFE3;
+  --white: #FFFFFF;
+}
+
+/* Fondo uniforme de todas las secciones */
+#nosotros,
+#niveles,
+#ambientes,
+#matricula,
+#noticias,
+#contacto,
+#preguntas {
+  background: linear-gradient(
+    135deg,
+    #205B91 0%,
+    #174572 100%
+  );
+}
+
+/* Títulos y descripciones */
+#nosotros .heading h2,
+#niveles .heading h2,
+#ambientes .heading h2,
+#matricula .heading h2,
+#noticias .heading h2,
+#contacto .heading h2,
+#preguntas .heading h2 {
+  color: #FFFFFF;
+}
+
+#nosotros .heading p,
+#niveles .heading p,
+#ambientes .heading p,
+#matricula .heading p,
+#noticias .heading p,
+#contacto .heading p,
+#preguntas .heading p {
+  color: #E8F3FF;
+}
+
+/* Etiquetas superiores */
+#nosotros .eyebrow,
+#niveles .eyebrow,
+#ambientes .eyebrow,
+#matricula .eyebrow,
+#noticias .eyebrow,
+#contacto .eyebrow,
+#preguntas .eyebrow {
+  color: #F3C66C;
+}
+
+/* Todas las tarjetas con fondo celeste */
+#nosotros .card,
+#niveles .card,
+#ambientes .card,
+#matricula .card,
+#noticias .card,
+#contacto .card,
+#preguntas .card {
+  background: #DCEFFA;
+  border: 1px solid #AFCFE3;
+  border-top: 4px solid #E1B35C;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 18, 43, 0.15);
+}
+
+/* Textos dentro de las tarjetas */
+#nosotros .card h3,
+#niveles .card h3,
+#ambientes .card h3,
+#matricula .card h3,
+#noticias .card h3,
+#contacto .card h3 {
+  color: #102A4D;
+}
+
+#nosotros .card p,
+#niveles .card p,
+#matricula .card p,
+#noticias .card p,
+#contacto .card p {
+  color: #405C74;
+}
+
+/* Mantener contrastes en tarjetas oscuras */
+#matricula .card.dark {
+  background: #102A4D;
+  border-color: #E1B35C;
+}
+
+#matricula .card.dark h3 {
+  color: #FFFFFF;
+}
+
+#matricula .card.dark p {
+  color: #E8F3FF;
+}
+
+/* Etiquetas informativas */
+.tag,
+.pending {
+  background: #FFF1D2;
+  color: #78520E;
+  border-color: #E1B35C;
+}
+
+/* Datos institucionales */
+#nosotros .facts span {
+  background: #DCEFFA;
+  color: #102A4D;
+  border: 1px solid #AFCFE3;
+}
+
+/* Filtros de ambientes */
+#ambientes .filter {
+  background: #DCEFFA;
+  color: #102A4D;
+  border: 1px solid #AFCFE3;
+}
+
+#ambientes .filter.active {
+  background: #E1B35C;
+  color: #102A4D;
+  border-color: #E1B35C;
+}
+
+/* Preguntas frecuentes */
+#matricula .faq,
+#preguntas .faq {
+  background: #DCEFFA;
+  color: #102A4D;
+}
+
+#matricula .faq p,
+#preguntas .faq p {
+  color: #405C74;
+}
+
+/* Botones */
+#matricula .btn.primary,
+#noticias .btn.outline,
+#contacto .btn.outline {
+  background: #E1B35C;
+  color: #102A4D;
+  border-color: #E1B35C;
+}
+
+/* Etiquetas de fotografías */
+#ambientes .gallery-caption {
+  color: #FFFFFF;
+}
+
+#ambientes .gallery-caption small {
+  color: #E8F3FF;
+}
+
+/* Textos auxiliares sobre fondo azul */
+#ambientes > .wrap > .hint,
+#contacto .heading + .hint {
+  color: #E8F3FF;
+}
+
+/* Transiciones suaves */
+.card,
+.filter,
+.btn {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0, 18, 43, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .filter,
+  .btn {
+    transition: none;
+  }
+}
