@@ -448,3 +448,44 @@
 #contacto .card p {
   color: #405C74;
 }
+
+/* COLOR CELESTE DEFINITIVO PARA LOS CUADROS */
+
+#nosotros .card,
+#niveles .card,
+#noticias .card,
+#contacto .card,
+#matricula .card:not(.dark),
+#ambientes .gallery-card:not(.with-photo),
+#matricula .faq,
+#preguntas .faq,
+#nosotros .facts span {
+    background: #D5ECFA !important;
+    background-color: #D5ECFA !important;
+    border-color: #A8CFE8 !important;
+}
+
+/* Mantener el cuadro de orientación oscuro */
+#matricula .card.dark {
+    background: #102A4D !important;
+    color: white !important;
+}
+
+/* Texto de las tarjetas */
+#nosotros .card h3,
+#niveles .card h3,
+#noticias .card h3,
+#contacto .card h3 {
+    color: #102A4D !important;
+}
+
+/* Mantener las fotografías visibles */
+#ambientes .gallery-card.with-photo {
+    background-color: transparent;
+}
+
+/* Opciones de la galería */
+#ambientes .filter:not(.active) {
+    background: #D5ECFA !important;
+    color: #102A4D !important;
+}
