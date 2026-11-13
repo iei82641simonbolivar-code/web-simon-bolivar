@@ -7,3 +7,86 @@
 @media(max-width:940px){.menu-toggle{display:block}.menu{display:none;position:absolute;top:81px;left:0;right:0;background:white;flex-direction:column;padding:20px 5%;box-shadow:0 20px 30px #1233}.menu.open{display:flex}.hero-grid{grid-template-columns:1fr;gap:30px}.hero-photo{min-height:290px}.cards.three,.gallery{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.nav{height:72px}.menu{top:71px}.logo{width:50px;height:50px}.section{padding:57px 0}.hero-grid{padding:55px 0}.cards.three,.cards.two,.gallery{grid-template-columns:1fr}.footer-content{flex-direction:column}.card{padding:22px}.actions .btn{width:100%}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
 
 .gallery-card[hidden]{display:none}
+
+
+
+/* ============================================================
+   MEJORA DE PORTADA · I.E. 82641 SIMÓN BOLÍVAR
+   Mantiene el patio de fondo y la fachada en la tarjeta derecha.
+   El app.py actual incorpora este CSS en el HTML de Streamlit.
+   ============================================================ */
+.header { box-shadow: 0 3px 18px rgba(9,32,56,.075); }
+.nav { height: 84px; }
+.brand { gap: 15px; font-size: .96rem; }
+.logo { height: 65px; width: 65px; object-fit: contain; }
+.menu a { transition: color .18s ease; }
+
+.hero { position: relative; isolation: isolate; }
+/* La imagen patio.jpg se añade por app.py a background-image. */
+.hero-grid {
+  min-height: 610px;
+  grid-template-columns: minmax(0,1.13fr) minmax(0,.87fr);
+  gap: clamp(24px,4.5vw,65px);
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+.hero-copy { position: relative; z-index: 2; }
+.hero-copy h1 {
+  max-width: 650px;
+  font-size: clamp(2.4rem,4.3vw,4.45rem);
+  font-weight: 850;
+  line-height: 1.12;
+  letter-spacing: -.038em;
+  text-wrap: balance;
+  text-shadow: 0 3px 14px rgba(0,14,32,.22);
+}
+.hero-copy > p {
+  max-width: 570px;
+  font-size: clamp(.98rem,1.5vw,1.1rem);
+  line-height: 1.75;
+  color: #f1f6fd;
+  text-shadow: 0 1px 9px rgba(0,13,33,.35);
+}
+.hero .eyebrow { color: #ffcd69; letter-spacing: .16em; }
+.hero .actions { align-items:center; gap:14px; margin-top:30px; }
+.hero .btn.primary { background: #efbc5a; box-shadow: 0 7px 23px rgba(0,0,0,.16); }
+.hero .btn.ghost { background: rgba(255,255,255,.07); border: 1.5px solid rgba(255,255,255,.7); backdrop-filter: blur(5px); }
+.hero .disclaimer { font-size:.76rem; color:#e3edf9; }
+
+.hero-photo {
+  position:relative;
+  width:100%;
+  min-height:360px;
+  aspect-ratio: 1.13/1;
+  border-radius: 23px;
+  border: 2px solid rgba(255,255,255,.55);
+  box-shadow: 0 30px 60px rgba(1,16,34,.38), 0 0 0 7px rgba(255,255,255,.075);
+  background-position: center 48%;
+  background-size: cover;
+  transition: transform .25s ease, box-shadow .25s ease;
+  overflow:hidden;
+}
+.hero-photo.has-photo::after {
+  content:"";
+  pointer-events:none;
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 65%,rgba(7,25,45,.13));
+}
+@media(hover:hover) and (prefers-reduced-motion:no-preference) {
+  .hero-photo:hover { transform:translateY(-4px); box-shadow:0 34px 65px rgba(1,16,34,.48); }
+}
+@media(max-width:940px){
+  .hero-grid {grid-template-columns:1fr;min-height:unset;gap:35px;padding:55px 0 65px;}
+  .hero-copy h1 { max-width:720px; }
+  .hero-photo {min-height:330px;aspect-ratio:16/9;max-width:690px;margin-inline:auto;}
+}
+@media(max-width:600px){
+  .nav {height:72px;}
+  .logo {height:52px;width:52px;}
+  .hero-grid {padding:44px 0 55px;gap:27px;}
+  .hero-copy h1 {font-size:clamp(2.1rem,8.6vw,3.05rem);line-height:1.16;}
+  .hero-copy > p {font-size:.98rem;}
+  .hero-photo {min-height:245px;aspect-ratio:4/3;border-radius:18px;}
+  .hero .actions .btn {width:100%;}
+}
