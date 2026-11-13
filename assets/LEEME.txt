@@ -1,11 +1,8 @@
-Guarda las imágenes autorizadas en esta carpeta, con estos nombres exactos:
-insignia.png - insignia oficial proporcionada por el colegio
-fachada.jpg - foto principal del colegio
-entrada.jpg - puerta o ingreso
-aula-primaria.jpg - aula de primaria
-aula-secundaria.jpg - aula de secundaria
-patio.jpg - patio
-biblioteca.jpg - únicamente si este ambiente existe y hay foto autorizada
+PRESENTACIÓN INSTITUCIONAL SIMÓN BOLÍVAR
 
-No se han incluido fotografías reales ni la insignia en esta versión porque el archivo original de la insignia adjunta no estaba disponible como archivo exportable. Al copiar la insignia proporcionada a assets/insignia.png, el sitio la mostrará automáticamente.
-Antes de publicar fotos de estudiantes, obtén autorización institucional y consentimiento correspondiente.
+1. En GitHub, reemplace SOLO estos tres archivos en la raíz del repositorio: index.html, script.js y styles.css.
+2. NO borre app.py, requirements.txt, config.js, noticias.json ni la carpeta assets.
+3. Para ver los cambios, espere el despliegue en Streamlit y actualice la página.
+4. Este sitio no inventa fechas, requisitos, noticias, misión, visión ni número de WhatsApp.
+5. Si la app es privada, los visitantes de Facebook no podrán verla sin acceso autorizado. Antes de compartir públicamente el enlace, obtenga permiso de la institución y prepare una versión pública con solo información y fotografías autorizadas.
+6. La portada con patio requiere que assets/patio.jpg exista en el repositorio actual.
