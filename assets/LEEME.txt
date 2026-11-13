@@ -1,0 +1,11 @@
+Guarda las imágenes autorizadas en esta carpeta, con estos nombres exactos:
+insignia.png - insignia oficial proporcionada por el colegio
+fachada.jpg - foto principal del colegio
+entrada.jpg - puerta o ingreso
+aula-primaria.jpg - aula de primaria
+aula-secundaria.jpg - aula de secundaria
+patio.jpg - patio
+biblioteca.jpg - únicamente si este ambiente existe y hay foto autorizada
+
+No se han incluido fotografías reales ni la insignia en esta versión porque el archivo original de la insignia adjunta no estaba disponible como archivo exportable. Al copiar la insignia proporcionada a assets/insignia.png, el sitio la mostrará automáticamente.
+Antes de publicar fotos de estudiantes, obtén autorización institucional y consentimiento correspondiente.
