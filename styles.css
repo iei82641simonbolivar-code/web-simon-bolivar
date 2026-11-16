@@ -74,4 +74,24 @@ body { -webkit-font-smoothing:antialiased; }
 .hero-photo {animation:slide-up .65s .08s var(--motion) both}
 @media(max-width:940px){.menu .nav-contact{justify-content:center;width:min(260px,100%)}.menu a:not(.nav-contact)::after{display:none}}
 @media(max-width:620px){.hero-copy h1{max-width:none}.gallery-card{min-height:230px}.level-icon{width:56px;height:56px}.btn{width:100%}.menu-toggle{border-radius:999px;font-weight:750}}
-@media(prefers-reduced-motion:reduce){.hero-copy,.hero-photo{animation:none}.header .brand,.menu a,.btn,.card,.level,.social-card,.gallery-card,.institution-info,.news-feature,.info-banner,.filter,.hero-photo,.institution-photo,.float-links .fb-float{transition:none!import
+@media(prefers-reduced-motion:reduce){.hero-copy,.hero-photo{animation:none}.header .brand,.menu a,.btn,.card,.level,.social-card,.gallery-card,.institution-info,.news-feature,.info-banner,.filter,.hero-photo,.institution-photo,.float-links .fb-float{transition:none!important}}
+
+/* Noticias conectadas visualmente con la pagina publica de Facebook. */
+.news-strip{display:flex;align-items:stretch;gap:0;background:#102a4d;border:1px solid #e1b35c;border-radius:16px;overflow:hidden;margin:4px 0 24px;color:#fff}
+.news-strip>strong{flex:none;display:grid;place-items:center;padding:14px 17px;background:#e1b35c;color:#102a4d;font-size:.81rem;letter-spacing:.04em;z-index:1}
+.news-strip-window{position:relative;overflow:hidden;min-height:48px;display:flex;align-items:center;flex:1;min-width:0}
+.news-strip-moving{white-space:nowrap;display:inline-block;min-width:max-content;padding-left:100%;animation:news-glide 24s linear infinite;font-weight:600;color:#fff}
+.news-strip-moving span{color:#e1b35c}
+.news-strip:hover .news-strip-moving{animation-play-state:paused}
+@keyframes news-glide{to{transform:translateX(-100%)}}
+.facebook-news-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,500px);gap:25px;align-items:start}
+.facebook-news-copy{border:1px solid #b5d8eb;border-top:4px solid #e1b35c;background:#dceffa;padding:28px;border-radius:21px;color:#102a4d;display:flex;align-items:flex-start;flex-direction:column;gap:15px}
+.fb-news-identity{display:flex;align-items:center;gap:14px}
+.fb-news-identity span{font-weight:900;font-family:Arial,sans-serif;font-size:1.7rem;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;color:white;background:#1877f2}
+.fb-news-identity h3{color:#102a4d;margin:0;font-size:1.32rem}
+.facebook-news-copy p{color:#30516a;margin:0}
+.facebook-news-copy small{color:#405c74;line-height:1.5}
+.facebook-feed-wrap{width:100%;min-height:520px;background:#e8f4fa;border:1px solid #b5d8eb;border-radius:21px;overflow:hidden;display:flex;justify-content:center;align-items:flex-start}
+.facebook-feed-wrap iframe{width:100%;max-width:500px;min-height:520px}
+@media(max-width:760px){.facebook-news-layout{grid-template-columns:1fr}.facebook-feed-wrap{min-height:520px}.news-strip>strong{font-size:.7rem;padding:10px}.news-strip-moving{font-size:.84rem}}
+@media(prefers-reduced-motion:reduce){.news-strip-moving{animation:none;transform:none;padding:10px;min-width:0;white-space:normal}}
