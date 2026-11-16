@@ -95,3 +95,14 @@ body { -webkit-font-smoothing:antialiased; }
 .facebook-feed-wrap iframe{width:100%;max-width:500px;min-height:520px}
 @media(max-width:760px){.facebook-news-layout{grid-template-columns:1fr}.facebook-feed-wrap{min-height:520px}.news-strip>strong{font-size:.7rem;padding:10px}.news-strip-moving{font-size:.84rem}}
 @media(prefers-reduced-motion:reduce){.news-strip-moving{animation:none;transform:none;padding:10px;min-width:0;white-space:normal}}
+
+/* Corrección: fachada original a color, sin capa oscura encima. */
+.hero-photo.with-photo { background-blend-mode:normal!important; filter:none!important; opacity:1!important; }
+.hero-photo.with-photo > * { display:none!important; }
+/* Facebook: ventana de publicaciones en lugar de mostrar toda la cabecera de la pagina.
+   El contenido del iframe pertenece a Meta y puede cambiar de tamaño sin previo aviso. */
+.facebook-feed-wrap {height:510px;min-height:0;overflow:hidden;position:relative;align-items:stretch;background:#fff}
+.facebook-feed-crop {height:510px;width:100%;max-width:500px;overflow:hidden;margin:0 auto;position:relative}
+.facebook-feed-crop iframe {display:block;position:absolute;left:0;top:-105px;width:100%;height:650px;min-height:650px;border:0}
+.compact-news .facebook-news-copy {min-height:230px}
+@media(max-width:760px){.facebook-feed-wrap,.facebook-feed-crop{height:470px}.facebook-feed-crop iframe{height:620px;min-height:620px}}
