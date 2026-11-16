@@ -1,6 +1,6 @@
-// Este archivo es PÚBLICO. Nunca pongas API Keys o contraseñas aquí.
+// Archivo público de configuración. NO guardar claves ni contraseñas aquí.
 window.COLE_CONFIG = {
-  facebook: "https://www.facebook.com/colegiosimonbolivarcajamarca/",
-  whatsappNumber: "", // Cuando se autorice: código país + número, solo dígitos. Ej. 51XXXXXXXXX
-  whatsappMessage: "Hola, quisiera consultar información de la I.E. 82641 Simón Bolívar."
+  facebook: "https://www.facebook.com/profile.php?id=61596645175140",
+  instagram: "https://www.instagram.com/iei.simonbolivarcajamarca/",
+  tiktok: "https://www.tiktok.com/@i.e.i.82641simon.bolivar"
 };
