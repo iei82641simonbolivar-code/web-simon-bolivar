@@ -20,7 +20,7 @@ document.querySelectorAll('.gallery-card').forEach(el=>loadImage(el,el.dataset.f
 function applyFilter(value){
  let shown=0;
  document.querySelectorAll('.gallery-card').forEach(card=>{
-  const visible=!card.classList.contains('unavailable')&&(value==='todos'||card.dataset.group===value);
+  const visible=!card.classList.contains('unavailable')&&(value==='todos'||(card.dataset.group||'').split(/\s+/).includes(value));
   card.hidden=!visible;
   if(visible)shown++;
  });
