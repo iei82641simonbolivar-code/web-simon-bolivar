@@ -32,8 +32,9 @@ for name in list(images):
 if "insignia.png" in images:
     html = html.replace('src="assets/insignia.png"', f'src="{images["insignia.png"]}"')
 
-# Foto real del patio, sin menores, para el fondo de la portada.
-patio = images.get("patio-2.jpeg") or images.get("patio-2.jpg")
+# Fondo original de la portada: patio.jpg.
+# Revisa que la imagen no muestre menores identificables antes de publicar.
+patio = images.get("patio.jpg")
 if patio:
     css += f'\n.hero {{background-image:linear-gradient(rgba(5,24,46,.74),rgba(5,24,46,.72)),url("{patio}")!important;}}\n'
 
