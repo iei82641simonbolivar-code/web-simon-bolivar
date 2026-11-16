@@ -17,7 +17,7 @@
     <button class="menu-toggle" aria-expanded="false" aria-controls="nav-menu" id="menu-toggle">☰ Menú</button>
     <nav class="menu" id="nav-menu" aria-label="Principal">
       <a href="#nosotros">Nosotros</a><a href="#niveles">Niveles</a><a href="#ambientes">Ambientes</a>
-      <a href="#matricula">Matrícula</a><a href="#noticias">Noticias</a><a href="#contacto">Contacto</a>
+      <a href="#matricula">Matrículas</a><a href="#noticias">Noticias</a><a href="#contacto">Contacto</a>
     </nav>
   </div>
 </header>
@@ -36,85 +36,81 @@
  </div>
 </section>
 <section id="nosotros" class="section">
- <div class="wrap">
-   <div class="heading"><span class="eyebrow navy">Nuestra identidad</span><h2>Somos Simón Bolívar</h2><p>La I.E. N.º 82641 «Simón Bolívar» es una institución educativa pública de Cajamarca que ofrece Educación Básica Regular en los niveles de primaria y secundaria. Nuestro lema es «Estudio, trabajo, acción».</p></div>
-   <div class="cards three">
-     <article class="card"><div class="icon">📘</div><h3>Quiénes somos</h3><p>Brindamos educación escolarizada en los niveles de primaria y secundaria, para una comunidad estudiantil mixta. Compartimos información general para estudiantes, madres, padres y familias.</p></article>
-     <article class="card"><div class="icon">🤝</div><h3>Nuestra comunidad</h3><p>Estudiantes, familias y personal educativo forman parte de la comunidad escolar de Simón Bolívar.</p></article>
-     <article class="card"><div class="icon">⭐</div><h3>Nuestro lema</h3><p><strong>Estudio, trabajo, acción.</strong> Una frase que identifica a nuestra institución educativa.</p></article>
-   </div>
-   <div class="facts"><span>📍 Cajamarca, Perú</span><span>🏫 Gestión pública</span><span>👥 Mixto</span><span>🎓 Educación Básica Regular</span></div>
- </div>
+  <div class="wrap">
+    <div class="heading"><span class="eyebrow navy">Nuestra institución</span><h2>Conoce a Simón Bolívar</h2></div>
+    <div class="institution-grid">
+      <div class="institution-info">
+        <h3>Un espacio para aprender y crecer</h3>
+        <p>La I.E. N.º 82641 Simón Bolívar es una institución educativa pública de Cajamarca que brinda educación primaria y secundaria.</p>
+        <p>En nuestra comunidad compartimos el compromiso de aprender, convivir y trabajar juntos.</p>
+        <p class="motto-line">Nuestro lema: <strong>«Estudio, trabajo, acción».</strong></p>
+        <div class="facts"><span>📍 Cajamarca, Perú</span><span>🏫 Gestión pública</span><span>🎓 Primaria y Secundaria</span></div>
+      </div>
+      <div class="institution-photo" data-image="patio-2.jpeg" role="img" aria-label="Patio del colegio Simón Bolívar"></div>
+    </div>
+  </div>
 </section>
 <section id="niveles" class="section soft">
  <div class="wrap">
-   <div class="heading"><span class="eyebrow navy">Formación académica</span><h2>Nuestros niveles educativos</h2><p>Conoce los dos niveles educativos de nuestra institución.</p></div>
-   <div class="cards two">
-     <article class="card level"><div class="level-icon">✏️</div><h3>Educación Primaria</h3><p>Desarrollo de competencias fundamentales para el aprendizaje, la convivencia y la exploración.</p><p class="meta">Código modular: 0532986</p></article>
-     <article class="card level"><div class="level-icon">🎓</div><h3>Educación Secundaria</h3><p>Formación de capacidades, responsabilidad y pensamiento crítico para los desafíos futuros.</p><p class="meta">Código modular: 1750884</p></article>
-   </div>
+  <div class="heading"><span class="eyebrow navy">Formación académica</span><h2>Nuestros niveles educativos</h2><p>Acompañamos el aprendizaje de nuestros estudiantes en dos etapas educativas.</p></div>
+  <div class="cards two">
+    <article class="card level"><div class="level-icon">📚</div><h3>Educación Primaria</h3><p>Un espacio para desarrollar aprendizajes, habilidades y valores fundamentales.</p></article>
+    <article class="card level"><div class="level-icon">🎓</div><h3>Educación Secundaria</h3><p>Formación para fortalecer conocimientos, autonomía, convivencia y pensamiento crítico.</p></article>
+  </div>
  </div>
 </section>
 <section id="ambientes" class="section">
  <div class="wrap">
-   <div class="heading"><span class="eyebrow navy">Conoce nuestro colegio</span><h2>Recorre nuestros ambientes</h2><p>Conoce nuestros espacios a través de la galería fotográfica. Selecciona una categoría y pulsa sobre una imagen para verla en grande.</p></div>
-   <div class="filters" role="group" aria-label="Filtrar ambientes">
+   <div class="heading"><span class="eyebrow navy">Nuestros espacios</span><h2>Conoce nuestros ambientes</h2><p>Descubre algunos espacios reales de nuestra institución. Haz clic en una fotografía para verla en grande.</p></div>
+   <div class="filters" role="group" aria-label="Filtrar fotografías">
      <button class="filter active" data-filter="todos" aria-pressed="true">Todos</button>
-     <button class="filter" data-filter="exteriores" aria-pressed="false">Exteriores</button>
-     <button class="filter" data-filter="comunes" aria-pressed="false">Patio</button>
+     <button class="filter" data-filter="exteriores" aria-pressed="false">Exterior</button>
+     <button class="filter" data-filter="patio" aria-pressed="false">Patio</button>
+     <button class="filter" data-filter="computo" aria-pressed="false">Aula de cómputo</button>
    </div>
    <div class="cards gallery">
-     <button class="gallery-card" data-group="exteriores" data-file="fachada.jpg" data-title="Fachada"><span class="photo-placeholder">🏫</span><span class="gallery-caption"><strong>Fachada principal</strong><small>Ampliar fotografía</small></span></button>
-     <button class="gallery-card" data-group="comunes" data-file="patio.jpg" data-title="Patio"><span class="photo-placeholder">🌳</span><span class="gallery-caption"><strong>Patio principal</strong><small>Ampliar fotografía</small></span></button>
+     <button type="button" class="gallery-card" data-group="exteriores" data-file="fachada.jpg" data-title="Fachada principal"><span class="photo-placeholder">🏫</span><span class="gallery-caption"><strong>Fachada principal</strong><small>Ver fotografía</small></span></button>
+     <button type="button" class="gallery-card" data-group="patio" data-file="patio-2.jpeg" data-title="Patio principal"><span class="photo-placeholder">🏫</span><span class="gallery-caption"><strong>Patio principal</strong><small>Ver fotografía</small></span></button>
+     <button type="button" class="gallery-card" data-group="computo" data-file="computo-1.jpeg" data-title="Aula de cómputo: vista general"><span class="photo-placeholder">💻</span><span class="gallery-caption"><strong>Aula de cómputo</strong><small>Ver fotografía</small></span></button>
+     <button type="button" class="gallery-card" data-group="computo" data-file="computo-2.jpeg" data-title="Aula de innovación pedagógica"><span class="photo-placeholder">💻</span><span class="gallery-caption"><strong>Aula de innovación pedagógica</strong><small>Ver fotografía</small></span></button>
    </div>
-   
  </div>
 </section>
 <section id="matricula" class="section soft">
  <div class="wrap">
-   <div class="heading"><span class="eyebrow navy">Información para familias</span><h2>Matrículas y orientación</h2><p>Información general y orientación para las familias. Las fechas y los requisitos oficiales se comunican a través de los canales autorizados del colegio.</p></div>
-   <div class="cards two">
-     <article class="card"><h3>Información sobre matrícula</h3><p>Para conocer el cronograma, los requisitos y la disponibilidad de vacantes vigentes, consulta los comunicados de la institución o comunícate mediante sus canales oficiales.</p><a class="btn outline" href="https://www.facebook.com/colegiosimonbolivarcajamarca/" target="_blank" rel="noopener noreferrer">Consultar Facebook ↗</a></article>
-     <article class="card dark"><h3>¿Necesitas orientación?</h3><p>Te invitamos a revisar los canales de información institucional y sus publicaciones oficiales para conocer las novedades del colegio.</p><a class="btn primary" href="#contacto">Ver canales de contacto</a></article>
-   </div>
-   <div class="faq">
-     <details><summary>¿Qué niveles ofrece el colegio?</summary><p>Primaria y secundaria.</p></details>
-     <details><summary>¿Hay vacantes disponibles?</summary><p>Las vacantes se consultan directamente con la institución a través de sus canales oficiales.</p></details>
-     <details><summary>¿Cuándo son las matrículas?</summary><p>El colegio informará su cronograma mediante los canales institucionales correspondientes.</p></details>
-   </div>
+  <div class="heading"><span class="eyebrow navy">Para las familias</span><h2>Información sobre matrículas</h2><p>Las fechas, requisitos y vacantes se comunican por los canales oficiales del colegio.</p></div>
+  <div class="info-banner">
+    <div><h3>¿Deseas información sobre matrículas?</h3><p>Consulta los avisos y comunicados de la institución. Así podrás conocer la información actualizada cuando sea publicada.</p></div>
+    <a class="btn primary" href="https://www.facebook.com/profile.php?id=61596645175140" target="_blank" rel="noopener noreferrer">Consultar Facebook</a>
+  </div>
  </div>
 </section>
 <section id="noticias" class="section">
  <div class="wrap">
-   <div class="heading"><span class="eyebrow navy">Comunidad educativa</span><h2>Noticias y comunicados</h2><p>Encuentra información de interés para la comunidad educativa y accede al Facebook del colegio para conocer sus publicaciones.</p></div>
-   <div class="news-toolbar" role="search">
-     <label class="sr-only" for="news-search">Buscar publicación</label>
-     <input type="search" id="news-search" placeholder="Buscar por título o contenido…" autocomplete="off" aria-label="Buscar noticias y comunicados">
-     <div class="news-filters" aria-label="Filtrar publicaciones" role="group">
-       <button class="news-filter active" data-kind="todos" aria-pressed="true">Todos</button>
-       <button class="news-filter" data-kind="comunicado" aria-pressed="false">Comunicados</button>
-       <button class="news-filter" data-kind="actividad" aria-pressed="false">Actividades</button>
-       <button class="news-filter" data-kind="documento" aria-pressed="false">Documentos</button>
-     </div>
-   </div>
-   <div id="news-results" class="cards three" aria-live="polite"></div>
-   <p id="news-empty" class="news-empty">Consulta las novedades de nuestra comunidad educativa en Facebook.</p>
-   
-   <a class="btn outline" href="https://www.facebook.com/colegiosimonbolivarcajamarca/" target="_blank" rel="noopener noreferrer">Ver Facebook del colegio ↗</a>
+  <div class="heading"><span class="eyebrow navy">Vida escolar</span><h2>Noticias y actividades</h2><p>Conoce las actividades y comunicados compartidos por nuestra institución.</p></div>
+  <div class="news-feature">
+    <span class="news-feature-icon" aria-hidden="true">📣</span>
+    <div><h3>Mantente informado</h3><p>Por el momento, las novedades del colegio se publican en sus redes sociales oficiales.</p></div>
+    <a class="btn primary" href="https://www.facebook.com/profile.php?id=61596645175140" target="_blank" rel="noopener noreferrer">Ver publicaciones</a>
+  </div>
  </div>
 </section>
 <section id="contacto" class="section soft">
  <div class="wrap">
-   <div class="heading"><span class="eyebrow navy">Estamos cerca</span><h2>Contacto y ubicación</h2></div>
-   <div class="cards two">
-     <article class="card"><h3>Institución Educativa N.° 82641</h3><p><strong>Ciudad:</strong> Cajamarca, Perú.</p><p><strong>Niveles:</strong> Primaria y secundaria.</p><p><strong>Red social:</strong> <a href="https://www.facebook.com/colegiosimonbolivarcajamarca/" target="_blank" rel="noopener noreferrer">Facebook del colegio ↗</a></p><a class="btn outline" href="https://www.facebook.com/colegiosimonbolivarcajamarca/" target="_blank" rel="noopener noreferrer">Visitar Facebook ↗</a></article>
-     <article class="card"><h3>Consultas e información</h3><p>Para información sobre trámites, novedades y actividades, visita la página de Facebook del colegio y revisa sus comunicados.</p><a class="btn outline" href="https://www.facebook.com/colegiosimonbolivarcajamarca/" target="_blank" rel="noopener noreferrer">Consultar publicaciones ↗</a></article>
-   </div>
+  <div class="heading"><span class="eyebrow navy">Estamos en contacto</span><h2>Contacto y redes sociales</h2><p>Encuentra información institucional y novedades en nuestros canales oficiales.</p></div>
+  <div class="contact-layout">
+    <article class="card contact-about"><h3>I.E. N.º 82641 Simón Bolívar</h3><p>📍 Cajamarca, Perú</p><p>🎓 Educación primaria y secundaria</p><p>Para consultas sobre matrículas y actividades, visita los canales oficiales de la institución.</p></article>
+    <div class="social-grid">
+      <a class="social-card facebook" href="https://www.facebook.com/profile.php?id=61596645175140" target="_blank" rel="noopener noreferrer" aria-label="Abrir Facebook del colegio"><span class="brand-mark">f</span><span><strong>Facebook</strong><small>Publicaciones y comunicados</small></span><span aria-hidden="true">↗</span></a>
+      <a class="social-card instagram" href="https://www.instagram.com/iei.simonbolivarcajamarca/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram del colegio"><span class="brand-mark">◎</span><span><strong>Instagram</strong><small>Fotos y actividades</small></span><span aria-hidden="true">↗</span></a>
+      <a class="social-card tiktok" href="https://www.tiktok.com/@i.e.i.82641simon.bolivar" target="_blank" rel="noopener noreferrer" aria-label="Abrir TikTok del colegio"><span class="brand-mark">♪</span><span><strong>TikTok</strong><small>Videos institucionales</small></span><span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
  </div>
 </section>
 </main>
 <footer><div class="wrap footer-content"><div><strong>I.E. N.º 82641 Simón Bolívar</strong><p>Cajamarca, Perú · Estudio, trabajo, acción.</p></div><div><p>© <span id="year"></span> · Información general. Para trámites, consulte canales oficiales.</p><a href="#inicio">Volver arriba ↑</a></div></div></footer>
-<div class="float-links"><a href="https://www.facebook.com/colegiosimonbolivarcajamarca/" target="_blank" rel="noopener noreferrer" title="Facebook del colegio" aria-label="Visitar Facebook">f</a></div>
+<div class="float-links"><a class="fb-float" href="https://www.facebook.com/profile.php?id=61596645175140" target="_blank" rel="noopener noreferrer" title="Facebook oficial" aria-label="Facebook oficial del colegio"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.19 8.44 9.94v-7.04H7.9v-2.9h2.54V9.85c0-2.52 1.5-3.91 3.78-3.91 1.09 0 2.23.19 2.23.19v2.47h-1.27c-1.25 0-1.64.78-1.64 1.58v1.88h2.78l-.44 2.9h-2.34V22A10.02 10.02 0 0 0 22 12.06Z"/></svg></a></div>
 <dialog id="lightbox" aria-label="Fotografía del ambiente"><button id="close-dialog" class="close-dialog" aria-label="Cerrar fotografía">×</button><h3 id="dialog-title"></h3><div id="dialog-content"></div></dialog>
 <script src="config.js"></script><script src="script.js"></script>
 </body>
