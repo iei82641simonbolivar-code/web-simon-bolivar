@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Información general de la Institución Educativa N.º 82641 Simón Bolívar, Cajamarca.">
-<title>I.E. N.º 82641 Simón Bolívar | Cajamarca</title>
+<meta name="description" content="Información general de la Institución Educativa I.E.I. N.º 82641 Simón Bolívar, Cajamarca.">
+<title>I.E.I. N.º 82641 Simón Bolívar | Cajamarca</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,13 +11,13 @@
 <header class="header">
   <div class="wrap nav">
     <a class="brand" href="#inicio" aria-label="Inicio Simón Bolívar">
-      <img src="assets/insignia.png" alt="Insignia de la I.E. Simón Bolívar" class="logo">
-      <span>I.E. N.º 82641 <strong>SIMÓN BOLÍVAR</strong><small>CAJAMARCA · PERÚ</small></span>
+      <img src="assets/insignia.png" alt="Insignia de la I.E.I. N.º 82641 Simón Bolívar" class="logo">
+      <span>I.E.I. N.º 82641 <strong>SIMÓN BOLÍVAR</strong><small>CAJAMARCA · PERÚ</small></span>
     </a>
-    <button class="menu-toggle" aria-expanded="false" aria-controls="nav-menu" id="menu-toggle">☰ Menú</button>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="nav-menu" id="menu-toggle"><span aria-hidden="true">☰</span> Menú</button>
     <nav class="menu" id="nav-menu" aria-label="Principal">
       <a href="#nosotros">Nosotros</a><a href="#niveles">Niveles</a><a href="#ambientes">Ambientes</a>
-      <a href="#matricula">Matrículas</a><a href="#noticias">Noticias</a><a href="#contacto">Contacto</a>
+      <a href="#matricula">Matrículas</a><a href="#noticias">Noticias</a><a href="#contacto" class="nav-contact">Contacto <span aria-hidden="true">↗</span></a>
     </nav>
   </div>
 </header>
@@ -27,10 +27,10 @@
    <div class="hero-copy">
       <span class="eyebrow">Educación pública · Primaria y Secundaria</span>
       <h1>Estudio, trabajo, acción</h1>
-      <p>Bienvenidos a la I.E. N.º 82641 Simón Bolívar. Conoce nuestros niveles educativos, nuestros espacios y los canales de información para las familias de Cajamarca.</p>
-      <div class="actions"><a class="btn primary" href="#niveles">Descubre nuestros niveles</a><a class="btn ghost" href="#ambientes">Conoce nuestros ambientes</a></div>
+      <p>Bienvenidos a la I.E.I. N.º 82641 Simón Bolívar. Conoce nuestros niveles educativos, nuestros espacios y los canales de información para las familias de Cajamarca.</p>
+      <div class="actions"><a class="btn primary" href="#niveles">Ver niveles educativos <span aria-hidden="true">→</span></a><a class="btn ghost" href="#ambientes">Explorar ambientes <span aria-hidden="true">→</span></a></div>
    </div>
-   <div class="hero-photo photo-slot" data-image="fachada.jpg" role="img" aria-label="Espacio reservado para fotografía de la fachada">
+   <div class="hero-photo photo-slot" data-image="fachada.jpg" role="img" aria-label="Fachada principal del colegio">
       <span class="photo-icon">🏫</span><strong>Fachada del colegio</strong><small>Fotografía institucional</small>
    </div>
  </div>
@@ -41,7 +41,7 @@
     <div class="institution-grid">
       <div class="institution-info">
         <h3>Un espacio para aprender y crecer</h3>
-        <p>La I.E. N.º 82641 Simón Bolívar es una institución educativa pública de Cajamarca que brinda educación primaria y secundaria.</p>
+        <p>La I.E.I. N.º 82641 Simón Bolívar es una institución educativa pública de Cajamarca que brinda educación primaria y secundaria.</p>
         <p>En nuestra comunidad compartimos el compromiso de aprender, convivir y trabajar juntos.</p>
         <p class="motto-line">Nuestro lema: <strong>«Estudio, trabajo, acción».</strong></p>
         <div class="facts"><span>📍 Cajamarca, Perú</span><span>🏫 Gestión pública</span><span>🎓 Primaria y Secundaria</span></div>
@@ -67,13 +67,17 @@
      <button class="filter" data-filter="exteriores" aria-pressed="false">Exterior</button>
      <button class="filter" data-filter="patio" aria-pressed="false">Patio</button>
      <button class="filter" data-filter="computo" aria-pressed="false">Aula de cómputo</button>
+     <button class="filter" data-filter="aulas" aria-pressed="false">Aulas</button>
    </div>
    <div class="cards gallery">
-     <button type="button" class="gallery-card" data-group="exteriores" data-file="fachada.jpg" data-title="Fachada principal"><span class="photo-placeholder">🏫</span><span class="gallery-caption"><strong>Fachada principal</strong><small>Ver fotografía</small></span></button>
-     <button type="button" class="gallery-card" data-group="patio" data-file="patio-2.jpeg" data-title="Patio principal"><span class="photo-placeholder">🏫</span><span class="gallery-caption"><strong>Patio principal</strong><small>Ver fotografía</small></span></button>
-     <button type="button" class="gallery-card" data-group="computo" data-file="computo-1.jpeg" data-title="Aula de cómputo: vista general"><span class="photo-placeholder">💻</span><span class="gallery-caption"><strong>Aula de cómputo</strong><small>Ver fotografía</small></span></button>
-     <button type="button" class="gallery-card" data-group="computo" data-file="computo-2.jpeg" data-title="Aula de innovación pedagógica"><span class="photo-placeholder">💻</span><span class="gallery-caption"><strong>Aula de innovación pedagógica</strong><small>Ver fotografía</small></span></button>
+     <button type="button" class="gallery-card" data-group="exteriores" data-file="fachada.jpg" data-title="Fachada principal"><span class="photo-placeholder">Fotografía del colegio</span><span class="gallery-caption"><strong>Fachada principal</strong><small>Ver fotografía</small></span></button>
+     <button type="button" class="gallery-card" data-group="patio" data-file="patio-2.jpeg" data-title="Patio principal"><span class="photo-placeholder">Fotografía del colegio</span><span class="gallery-caption"><strong>Patio principal</strong><small>Ver fotografía</small></span></button>
+     <button type="button" class="gallery-card" data-group="computo" data-file="computo-1.jpeg" data-title="Aula de cómputo: vista general"><span class="photo-placeholder">Fotografía del aula</span><span class="gallery-caption"><strong>Aula de cómputo</strong><small>Ver fotografía</small></span></button>
+     <button type="button" class="gallery-card" data-group="computo" data-file="computo-2.jpeg" data-title="Aula de innovación pedagógica"><span class="photo-placeholder">Fotografía del aula</span><span class="gallery-caption"><strong>Aula de innovación pedagógica</strong><small>Ver fotografía</small></span></button>
+     <button type="button" class="gallery-card" data-group="aulas" data-file="aula-1.jpeg" data-title="Aula de clases: primera vista"><span class="photo-placeholder">Fotografía del aula</span><span class="gallery-caption"><strong>Aula de clases</strong><small>Ver fotografía</small></span></button>
+     <button type="button" class="gallery-card" data-group="aulas" data-file="aula-2.jpeg" data-title="Aula de clases: segunda vista"><span class="photo-placeholder">Fotografía del aula</span><span class="gallery-caption"><strong>Otra vista del aula</strong><small>Ver fotografía</small></span></button>
    </div>
+   <p id="gallery-empty" class="gallery-empty" hidden>En este momento no hay fotografías disponibles en esta categoría.</p>
  </div>
 </section>
 <section id="matricula" class="section soft">
@@ -81,7 +85,7 @@
   <div class="heading"><span class="eyebrow navy">Para las familias</span><h2>Información sobre matrículas</h2><p>Las fechas, requisitos y vacantes se comunican por los canales oficiales del colegio.</p></div>
   <div class="info-banner">
     <div><h3>¿Deseas información sobre matrículas?</h3><p>Consulta los avisos y comunicados de la institución. Así podrás conocer la información actualizada cuando sea publicada.</p></div>
-    <a class="btn primary" href="https://www.facebook.com/profile.php?id=61596645175140" target="_blank" rel="noopener noreferrer">Consultar Facebook</a>
+    <a class="btn primary" href="https://www.facebook.com/profile.php?id=61596645175140" target="_blank" rel="noopener noreferrer">Consultar en Facebook <span aria-hidden="true">↗</span></a>
   </div>
  </div>
 </section>
@@ -91,7 +95,7 @@
   <div class="news-feature">
     <span class="news-feature-icon" aria-hidden="true">📣</span>
     <div><h3>Mantente informado</h3><p>Por el momento, las novedades del colegio se publican en sus redes sociales oficiales.</p></div>
-    <a class="btn primary" href="https://www.facebook.com/profile.php?id=61596645175140" target="_blank" rel="noopener noreferrer">Ver publicaciones</a>
+    <a class="btn primary" href="https://www.facebook.com/profile.php?id=61596645175140" target="_blank" rel="noopener noreferrer">Ver noticias en Facebook <span aria-hidden="true">↗</span></a>
   </div>
  </div>
 </section>
@@ -99,17 +103,17 @@
  <div class="wrap">
   <div class="heading"><span class="eyebrow navy">Estamos en contacto</span><h2>Contacto y redes sociales</h2><p>Encuentra información institucional y novedades en nuestros canales oficiales.</p></div>
   <div class="contact-layout">
-    <article class="card contact-about"><h3>I.E. N.º 82641 Simón Bolívar</h3><p>📍 Cajamarca, Perú</p><p>🎓 Educación primaria y secundaria</p><p>Para consultas sobre matrículas y actividades, visita los canales oficiales de la institución.</p></article>
+    <article class="card contact-about"><h3>I.E.I. N.º 82641 Simón Bolívar</h3><p>📍 Cajamarca, Perú</p><p>🎓 Educación primaria y secundaria</p><p>Para consultas sobre matrículas y actividades, visita los canales oficiales de la institución.</p></article>
     <div class="social-grid">
-      <a class="social-card facebook" href="https://www.facebook.com/profile.php?id=61596645175140" target="_blank" rel="noopener noreferrer" aria-label="Abrir Facebook del colegio"><span class="brand-mark">f</span><span><strong>Facebook</strong><small>Publicaciones y comunicados</small></span><span aria-hidden="true">↗</span></a>
-      <a class="social-card instagram" href="https://www.instagram.com/iei.simonbolivarcajamarca/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram del colegio"><span class="brand-mark">◎</span><span><strong>Instagram</strong><small>Fotos y actividades</small></span><span aria-hidden="true">↗</span></a>
-      <a class="social-card tiktok" href="https://www.tiktok.com/@i.e.i.82641simon.bolivar" target="_blank" rel="noopener noreferrer" aria-label="Abrir TikTok del colegio"><span class="brand-mark">♪</span><span><strong>TikTok</strong><small>Videos institucionales</small></span><span aria-hidden="true">↗</span></a>
+      <a class="social-card facebook" href="https://www.facebook.com/profile.php?id=61596645175140" target="_blank" rel="noopener noreferrer" aria-label="Abrir Facebook del colegio"><span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.19 8.44 9.94v-7.04H7.9v-2.9h2.54V9.85c0-2.52 1.5-3.91 3.78-3.91 1.09 0 2.23.19 2.23.19v2.47h-1.27c-1.25 0-1.64.78-1.64 1.58v1.88h2.78l-.44 2.9h-2.34V22A10.02 10.02 0 0 0 22 12.06Z"/></svg></span><span><strong>Facebook</strong><small>Publicaciones y comunicados</small></span><span aria-hidden="true">↗</span></a>
+      <a class="social-card instagram" href="https://www.instagram.com/iei.simonbolivarcajamarca/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram del colegio"><span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.7" cy="6.6" r="1.2" fill="currentColor"/></svg></span><span><strong>Instagram</strong><small>Fotos y actividades</small></span><span aria-hidden="true">↗</span></a>
+      <a class="social-card tiktok" href="https://www.tiktok.com/@i.e.i.82641simon.bolivar" target="_blank" rel="noopener noreferrer" aria-label="Abrir TikTok del colegio"><span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.7 2c.2 2.6 1.7 4.2 4.3 4.4v3.8c-1.8 0-3.1-.5-4.3-1.4v6.4c0 4.1-2.9 6.8-6.5 6.8A6.4 6.4 0 0 1 2.8 15c0-3.8 3.1-6.6 7-6.4v3.8a2.7 2.7 0 0 0-3.2 2.7c0 1.6 1.1 2.7 2.6 2.7 1.8 0 2.7-1.3 2.7-3.1V2h3.8Z"/></svg></span><span><strong>TikTok</strong><small>Videos institucionales</small></span><span aria-hidden="true">↗</span></a>
     </div>
   </div>
  </div>
 </section>
 </main>
-<footer><div class="wrap footer-content"><div><strong>I.E. N.º 82641 Simón Bolívar</strong><p>Cajamarca, Perú · Estudio, trabajo, acción.</p></div><div><p>© <span id="year"></span> · Información general. Para trámites, consulte canales oficiales.</p><a href="#inicio">Volver arriba ↑</a></div></div></footer>
+<footer><div class="wrap footer-content"><div><strong>I.E.I. N.º 82641 Simón Bolívar</strong><p>Cajamarca, Perú · Estudio, trabajo, acción.</p></div><div><p>© <span id="year"></span> · Información general. Para trámites, consulte canales oficiales.</p><a href="#inicio">Volver arriba ↑</a></div></div></footer>
 <div class="float-links"><a class="fb-float" href="https://www.facebook.com/profile.php?id=61596645175140" target="_blank" rel="noopener noreferrer" title="Facebook oficial" aria-label="Facebook oficial del colegio"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.19 8.44 9.94v-7.04H7.9v-2.9h2.54V9.85c0-2.52 1.5-3.91 3.78-3.91 1.09 0 2.23.19 2.23.19v2.47h-1.27c-1.25 0-1.64.78-1.64 1.58v1.88h2.78l-.44 2.9h-2.34V22A10.02 10.02 0 0 0 22 12.06Z"/></svg></a></div>
 <dialog id="lightbox" aria-label="Fotografía del ambiente"><button id="close-dialog" class="close-dialog" aria-label="Cerrar fotografía">×</button><h3 id="dialog-title"></h3><div id="dialog-content"></div></dialog>
 <script src="config.js"></script><script src="script.js"></script>
