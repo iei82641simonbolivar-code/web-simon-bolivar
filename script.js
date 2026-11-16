@@ -14,7 +14,7 @@ function loadImage(target,filename,hero=false){
  img.onerror=()=>{if(target.matches('.gallery-card')){target.classList.add('unavailable');target.hidden=true;const current=document.querySelector('.filter.active')?.dataset.filter||'todos';applyFilter(current);}};
  img.src=src;
 }
-loadImage(document.querySelector('.hero-photo'),'fachada.jpg',true);
+loadImage(document.querySelector('.hero-photo'),'fachada.jpg',false);
 loadImage(document.querySelector('.institution-photo'),'patio-2.jpeg');
 document.querySelectorAll('.gallery-card').forEach(el=>loadImage(el,el.dataset.file));
 function applyFilter(value){
@@ -41,4 +41,4 @@ document.querySelectorAll('.gallery-card').forEach(card=>card.addEventListener('
 document.getElementById('close-dialog')?.addEventListener('click',()=>lightbox.close());
 lightbox?.addEventListener('click',e=>{if(e.target===lightbox)lightbox.close();});
 
-// El código mantiene una galería segura: fotos ausentes no muestran bloque
+// El código mantiene una galería segura: fotos ausentes no muestran bloques rotos.
