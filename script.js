@@ -2,7 +2,25 @@
 const menuButton=document.getElementById('menu-toggle');
 const menu=document.getElementById('nav-menu');
 menuButton?.addEventListener('click',()=>{const open=menu.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));});
-menu?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');menuButton?.setAttribute('aria-expanded','false');}));
+// Navegación por secciones, incluso dentro del marco de Streamlit.
+function closeSiteMenu(){
+  menu?.classList.remove('open');
+  menuButton?.setAttribute('aria-expanded','false');
+}
+menu?.querySelectorAll('a[href^="#"]').forEach(link=>{
+  link.addEventListener('click',event=>{
+    const id=link.getAttribute('href').slice(1);
+    const target=document.getElementById(id);
+    if(!target)return;
+    event.preventDefault();
+    closeSiteMenu();
+    target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+    if(history.replaceState)history.replaceState(null,'','#'+id);
+  });
+});
+menuButton?.addEventListener('keydown', e=>{if(e.key==='Escape')closeSiteMenu();});
+document.addEventListener('keydown', e=>{if(e.key==='Escape')closeSiteMenu();});
+
 const year=document.getElementById('year');if(year)year.textContent=new Date().getFullYear();
 const IMAGES=window.SCHOOL_IMAGES||{};
 function imageUrl(name){return IMAGES[name]||`assets/${name}`;}
@@ -14,7 +32,7 @@ function loadImage(target,filename,hero=false){
  img.onerror=()=>{if(target.matches('.gallery-card')){target.classList.add('unavailable');target.hidden=true;const current=document.querySelector('.filter.active')?.dataset.filter||'todos';applyFilter(current);}};
  img.src=src;
 }
-loadImage(document.querySelector('.hero-photo'),'fachada.jpg',false);
+loadImage(document.querySelector('.hero-photo'),'fachada.jpg',true);
 loadImage(document.querySelector('.institution-photo'),'patio-2.jpeg');
 document.querySelectorAll('.gallery-card').forEach(el=>loadImage(el,el.dataset.file));
 function applyFilter(value){
