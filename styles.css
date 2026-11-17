@@ -116,3 +116,21 @@ body { -webkit-font-smoothing:antialiased; }
 .news-clean-body p {color:#35516c;line-height:1.7;margin:0 0 22px}
 .news-clean-body .btn {width:auto}
 @media(max-width:620px){.news-clean{flex-direction:column;align-items:flex-start;padding:23px}.news-clean-icon{width:68px;height:68px;flex-basis:68px}.news-clean-icon svg{width:42px;height:42px}.news-clean-body .btn{width:100%}}
+
+/* Ajuste de redes: Facebook una sola vez; WhatsApp de prueba flotante */
+.news-clean{max-width:860px; padding:30px 34px; align-items:flex-start}
+.news-clean-body{width:100%}
+.social-card.facebook .facebook-letter{font-family:Arial,Helvetica,sans-serif;font-weight:900;font-size:36px;line-height:1;color:white;display:block;margin-top:5px}
+.social-card.whatsapp .brand-mark{background:#25D366;color:white}
+.social-card.whatsapp .brand-mark svg{width:29px;height:29px}
+.float-links .wa-float{display:grid;place-items:center;width:54px;height:54px;border-radius:50%;background:#25D366;color:white;box-shadow:0 6px 20px #0005;text-decoration:none;transition:transform .2s ease}
+.float-links .wa-float:hover{transform:scale(1.07)}
+.float-links .wa-float svg{width:33px;height:33px}
+@media(max-width:620px){.news-clean{padding:22px}}
+@media(prefers-reduced-motion:reduce){.float-links .wa-float{transition:none}}
+
+/* Botón flotante único de WhatsApp */
+.float-links { position:fixed!important; right:20px!important; bottom:24px!important; z-index:9999!important; display:block!important; }
+.float-links .wa-float { display:grid!important; place-items:center!important; width:58px!important; height:58px!important; border-radius:50%!important; background:#25D366!important; color:#fff!important; box-shadow:0 6px 22px rgba(0,0,0,.3)!important; text-decoration:none!important; opacity:1!important; visibility:visible!important; }
+.float-links .wa-float svg { display:block!important; width:36px!important; height:36px!important; fill:currentColor!important; }
+.float-links .wa-float:hover { transform:translateY(-3px); }
