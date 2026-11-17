@@ -164,3 +164,14 @@ body { -webkit-font-smoothing:antialiased; }
 /* Evita que el encabezado fijo oculte los títulos cuando se navega. */
 html {scroll-padding-top:105px;}
 section[id] {scroll-margin-top:105px;}
+
+/* Fachada a color natural: sin filtros en la tarjeta lateral.
+   La imagen se coloca desde script.js, sin superposicion oscura. */
+.hero-photo.has-photo, .hero-photo.with-photo {
+  opacity: 1 !important;
+  filter: none !important;
+  background-blend-mode: normal !important;
+}
+.hero-photo.has-photo::before, .hero-photo.with-photo::before {
+  content: none !important;
+}
