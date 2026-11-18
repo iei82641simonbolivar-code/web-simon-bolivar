@@ -175,3 +175,10 @@ section[id] {scroll-margin-top:105px;}
 .hero-photo.has-photo::before, .hero-photo.with-photo::before {
   content: none !important;
 }
+
+/* Edición institucional final: títulos limpios, sin etiquetas decorativas redundantes. */
+.section .heading h2 {margin-top:0;}
+.institution-details {margin:22px 0 0!important;padding-top:15px;border-top:1px solid #b3d0e3;color:#355974!important;font-weight:600;font-size:.96rem;line-height:1.6;}
+.gallery-card .gallery-caption {padding-top:45px;}
+.filter {border-radius:10px;}
+footer .footer-content a {text-underline-offset:4px;font-weight:700;}
