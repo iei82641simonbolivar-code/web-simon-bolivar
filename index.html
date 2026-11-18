@@ -1,124 +1,990 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Información general de la Institución Educativa I.E.I. N.º 82641 Simón Bolívar, Cajamarca.">
-<title>I.E.I. N.º 82641 Simón Bolívar | Cajamarca</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
+"""Sistema de consulta escolar privado – I. E. N.° 82641 Simón Bolívar."""
+import hashlib
+import base64
+import hmac
+import html
+import io
+import re
+import unicodedata
+from pathlib import Path
+import pandas as pd
+import plotly.express as px
+import streamlit as st
+from cryptography.fernet import InvalidToken
+from data_utils import decrypt_frame, encrypt_frame, parse_books, norm, FIELDS
 
-<header class="header">
-  <div class="wrap nav">
-    <a class="brand" href="#inicio" aria-label="Inicio Simón Bolívar">
-      <img src="assets/insignia.png" alt="Insignia de la I.E.I. N.º 82641 Simón Bolívar" class="logo">
-      <span>I.E.I. N.º 82641 <strong>SIMÓN BOLÍVAR</strong><small>CAJAMARCA · PERÚ</small></span>
-    </a>
-    <button class="menu-toggle" aria-expanded="false" aria-controls="nav-menu" id="menu-toggle"><span aria-hidden="true">☰</span> Menú</button>
-    <nav class="menu" id="nav-menu" aria-label="Principal">
-      <a href="#nosotros">Nosotros</a><a href="#niveles">Niveles</a><a href="#ambientes">Ambientes</a>
-      <a href="#matricula">Matrículas</a><a href="#noticias">Noticias</a><a href="#contacto" class="nav-contact">Contacto <span aria-hidden="true">↗</span></a>
-    </nav>
-  </div>
-</header>
-<main>
-<section class="hero" id="inicio">
- <div class="wrap hero-grid">
-   <div class="hero-copy">
-      <span class="eyebrow">Educación pública · Primaria y Secundaria</span>
-      <h1>Estudio, trabajo, acción</h1>
-      <p>Bienvenidos a la I.E.I. N.º 82641 Simón Bolívar. Conoce nuestros niveles educativos, nuestros espacios y los canales de información para las familias de Cajamarca.</p>
-      <div class="actions"><a class="btn primary" href="#niveles">Ver niveles educativos <span aria-hidden="true">→</span></a><a class="btn ghost" href="#ambientes">Explorar ambientes <span aria-hidden="true">→</span></a></div>
-   </div>
-   <div class="hero-photo photo-slot" data-image="fachada.jpg" role="img" aria-label="Fachada principal del colegio">
-      <span class="photo-icon">🏫</span><strong>Fachada del colegio</strong><small>Fotografía institucional</small>
-   </div>
- </div>
-</section>
-<section id="nosotros" class="section">
-  <div class="wrap">
-    <div class="heading"><span class="eyebrow navy">Nuestra institución</span><h2>Conoce a Simón Bolívar</h2></div>
-    <div class="institution-grid">
-      <div class="institution-info">
-        <h3>Educación primaria y secundaria en Cajamarca</h3>
-        <p>La I.E.I. N.º 82641 Simón Bolívar es una institución educativa pública que ofrece los niveles de Primaria y Secundaria.</p>
-        <p>Conoce los ambientes de nuestro colegio, sus niveles educativos y los canales oficiales para mantenerte informado sobre las actividades institucionales.</p>
-        <div class="facts"><span>📍 Cajamarca, Perú</span><span>🏫 Gestión pública</span><span>🎓 Primaria y Secundaria</span></div>
-      </div>
-      <div class="institution-photo" data-image="patio-2.jpeg" role="img" aria-label="Patio del colegio Simón Bolívar"></div>
-    </div>
-  </div>
-</section>
-<section id="niveles" class="section soft">
- <div class="wrap">
-  <div class="heading"><span class="eyebrow navy">Formación académica</span><h2>Nuestros niveles educativos</h2><p>Acompañamos el aprendizaje de nuestros estudiantes en dos etapas educativas.</p></div>
-  <div class="cards two">
-    <article class="card level"><div class="level-icon">📚</div><h3>Educación Primaria</h3><p>Un espacio para desarrollar aprendizajes, habilidades y valores fundamentales.</p></article>
-    <article class="card level"><div class="level-icon">🎓</div><h3>Educación Secundaria</h3><p>Formación para fortalecer conocimientos, autonomía, convivencia y pensamiento crítico.</p></article>
-  </div>
- </div>
-</section>
-<section id="ambientes" class="section">
- <div class="wrap">
-   <div class="heading"><span class="eyebrow navy">Nuestros espacios</span><h2>Conoce nuestros ambientes</h2><p>Descubre algunos espacios reales de nuestra institución. Haz clic en una fotografía para verla en grande.</p></div>
-   <div class="filters" role="group" aria-label="Filtrar fotografías">
-     <button class="filter active" data-filter="todos" aria-pressed="true">Todos</button>
-     <button class="filter" data-filter="exteriores" aria-pressed="false">Exterior</button>
-     <button class="filter" data-filter="patio" aria-pressed="false">Patio</button>
-     <button class="filter" data-filter="computo" aria-pressed="false">Aula de cómputo</button>
-     <button class="filter" data-filter="aulas" aria-pressed="false">Aulas</button>
-   </div>
-   <div class="cards gallery">
-     <button type="button" class="gallery-card" data-group="exteriores" data-file="fachada.jpg" data-title="Fachada principal"><span class="photo-placeholder">Fotografía del colegio</span><span class="gallery-caption"><strong>Fachada principal</strong><small>Ver fotografía</small></span></button>
-     <button type="button" class="gallery-card" data-group="patio exteriores" data-file="patio-2.jpeg" data-title="Patio principal"><span class="photo-placeholder">Fotografía del colegio</span><span class="gallery-caption"><strong>Patio principal</strong><small>Ver fotografía</small></span></button>
-     <button type="button" class="gallery-card" data-group="patio exteriores" data-file="patio.jpg" data-title="Patio del colegio: otra vista"><span class="photo-placeholder">Fotografía del patio</span><span class="gallery-caption"><strong>Otro ángulo del patio</strong><small>Ver fotografía</small></span></button>
-     <button type="button" class="gallery-card" data-group="patio exteriores" data-file="patio-3.jpeg" data-title="Patio y bandera del Perú"><span class="photo-placeholder">Fotografía del patio</span><span class="gallery-caption"><strong>Patio y bandera</strong><small>Ver fotografía</small></span></button>
-     <button type="button" class="gallery-card" data-group="computo" data-file="computo-1.jpeg" data-title="Aula de cómputo: vista general"><span class="photo-placeholder">Fotografía del aula</span><span class="gallery-caption"><strong>Aula de cómputo</strong><small>Ver fotografía</small></span></button>
-     <button type="button" class="gallery-card" data-group="computo" data-file="computo-2.jpeg" data-title="Aula de innovación pedagógica"><span class="photo-placeholder">Fotografía del aula</span><span class="gallery-caption"><strong>Aula de innovación pedagógica</strong><small>Ver fotografía</small></span></button>
-     <button type="button" class="gallery-card" data-group="aulas" data-file="aula-1.jpeg" data-title="Aula de clases: primera vista"><span class="photo-placeholder">Fotografía del aula</span><span class="gallery-caption"><strong>Aula de clases</strong><small>Ver fotografía</small></span></button>
-     <button type="button" class="gallery-card" data-group="aulas" data-file="aula-2.jpeg" data-title="Aula de clases: segunda vista"><span class="photo-placeholder">Fotografía del aula</span><span class="gallery-caption"><strong>Otra vista del aula</strong><small>Ver fotografía</small></span></button>
-   </div>
-   <p id="gallery-empty" class="gallery-empty" hidden>No se encontraron fotografías en esta categoría.</p>
- </div>
-</section>
-<section id="matricula" class="section soft">
- <div class="wrap">
-  <div class="heading"><span class="eyebrow navy">Para las familias</span><h2>Información sobre matrículas</h2><p>Las fechas, requisitos y vacantes se comunican por los canales oficiales del colegio.</p></div>
-  <div class="info-banner">
-    <div><h3>¿Deseas información sobre matrículas?</h3><p>Consulta los avisos y comunicados de la institución. Encontrarás información actualizada en los canales oficiales del colegio.</p></div>
-    <a class="btn primary" href="https://www.facebook.com/profile.php?id=61596645175140" target="_blank" rel="noopener noreferrer">Consultar en Facebook <span aria-hidden="true">↗</span></a>
-  </div>
- </div>
-</section>
-<section id="noticias" class="section">
- <div class="wrap">
-  <div class="heading"><span class="eyebrow navy">Vida escolar</span><h2>Noticias y actividades</h2><p>Conoce las novedades, comunicados y actividades de nuestra comunidad educativa.</p></div>
-  <div class="news-clean">
-    <div class="news-clean-body">
-      <h3>Noticias y actividades del colegio</h3>
-      <p>Consulta nuestras noticias, actividades y comunicados publicados en Facebook.</p>
-      <a class="btn primary" href="https://www.facebook.com/profile.php?id=61596645175140" target="_blank" rel="noopener noreferrer">Ver noticias en Facebook <span aria-hidden="true">↗</span></a>
-    </div>
-  </div>
- </div>
-</section>
-<section id="contacto" class="section soft">
- <div class="wrap">
-  <div class="heading"><span class="eyebrow navy">Estamos en contacto</span><h2>Contacto y redes sociales</h2><p>Encuentra información institucional y novedades en nuestros canales oficiales.</p></div>
-  <div class="contact-layout">
-    <article class="card contact-about"><h3>I.E.I. N.º 82641 Simón Bolívar</h3><p>📍 Cajamarca, Perú</p><p>🎓 Educación primaria y secundaria</p><p>Para consultas sobre matrículas y actividades, visita los canales oficiales de la institución.</p></article>
-    <div class="social-grid">
-      <a class="social-card facebook" href="https://www.facebook.com/profile.php?id=61596645175140" target="_blank" rel="noopener noreferrer" aria-label="Abrir Facebook del colegio"><span class="brand-mark"><span class="facebook-letter" aria-hidden="true">f</span></span><span><strong>Facebook</strong><small>Publicaciones y comunicados</small></span><span aria-hidden="true">↗</span></a>
-      <a class="social-card instagram" href="https://www.instagram.com/iei.simonbolivarcajamarca/" target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram del colegio"><span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.7" cy="6.6" r="1.2" fill="currentColor"/></svg></span><span><strong>Instagram</strong><small>Fotos y actividades</small></span><span aria-hidden="true">↗</span></a>
-      <a class="social-card tiktok" href="https://www.tiktok.com/@i.e.i.82641simon.bolivar" target="_blank" rel="noopener noreferrer" aria-label="Abrir TikTok del colegio"><span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.7 2c.2 2.6 1.7 4.2 4.3 4.4v3.8c-1.8 0-3.1-.5-4.3-1.4v6.4c0 4.1-2.9 6.8-6.5 6.8A6.4 6.4 0 0 1 2.8 15c0-3.8 3.1-6.6 7-6.4v3.8a2.7 2.7 0 0 0-3.2 2.7c0 1.6 1.1 2.7 2.6 2.7 1.8 0 2.7-1.3 2.7-3.1V2h3.8Z"/></svg></span><span><strong>TikTok</strong><small>Videos institucionales</small></span><span aria-hidden="true">↗</span></a>
-    </div>
-  </div>
- </div>
-</section>
-</main>
-<footer><div class="wrap footer-content"><div><strong>I.E.I. N.º 82641 Simón Bolívar</strong><p>Cajamarca, Perú · Educación primaria y secundaria.</p></div><div><p>© <span id="year"></span> · Información general. Para trámites, consulte canales oficiales.</p><a href="#inicio">Volver arriba ↑</a></div></div></footer>
-<div class="float-links"><a class="wa-float" href="https://wa.me/51901790616" target="_blank" rel="noopener noreferrer" title="Escribir por WhatsApp" aria-label="Abrir WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path fill="currentColor" d="M16 2.5a13.3 13.3 0 0 0-11.5 20L2.5 29.5l7.2-1.9A13.5 13.5 0 1 0 16 2.5Zm0 24.3c-2.1 0-4.1-.6-5.8-1.7l-.4-.2-4.2 1.1 1.1-4.1-.3-.4a10.7 10.7 0 1 1 9.6 5.3Zm5.9-8c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1.1-1 1.3-.2.2-.4.3-.7.1-.4-.2-1.5-.5-2.8-1.8-1-1-1.6-2.2-1.8-2.6-.2-.4 0-.6.2-.8l.6-.7.4-.6c.1-.2 0-.5 0-.7l-1-2.3c-.2-.6-.5-.5-.8-.5h-.7c-.3 0-.7.1-1 .5-.4.4-1.4 1.4-1.4 3.4 0 2 1.5 3.9 1.7 4.2.2.3 3 4.6 7.3 6.2 1 .3 1.7.5 2.3.6 1 .2 1.8.1 2.5-.2.7-.3 2.1-1 2.4-2 .3-.9.3-1.7.2-1.9-.1-.2-.4-.4-.7-.5Z"/></svg></a></div>
-<dialog id="lightbox" aria-label="Fotografía del ambiente"><button id="close-dialog" class="close-dialog" aria-label="Cerrar fotografía">×</button><h3 id="dialog-title"></h3><div id="dialog-content"></div></dialog>
-<script src="config.js"></script><script src="script.js"></script>
-</body>
-</html>
+st.set_page_config(page_title='Sistema Educativo | Simón Bolívar',page_icon='🏫',layout='wide',initial_sidebar_state='collapsed')
+ROOT=Path(__file__).resolve().parent
+LOGO=ROOT/'logo.png' if (ROOT/'logo.png').exists() else ROOT/'logo.jpeg'
+FONDO=ROOT/'fondo_colegio.png'
+BASE=ROOT/'matricula_2026.enc'
+NAV=['🔎 Estudiantes','👨‍👩‍👧 Familias','📋 Ratificación','🧾 APAFA','📊 Estadísticas','📥 Reportes','✅ Calidad','🔄 Actualizar']
+
+st.markdown('''<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap');
+html,body,.stApp{font-family:'DM Sans',sans-serif}
+h1,h2,h3{font-family:'Outfit',sans-serif!important}
+[data-testid="stAppViewContainer"]{background:linear-gradient(180deg,#F7FAFD,#EDF4F9);color:#173D59}
+.block-container{max-width:1520px;padding-top:1.4rem;padding-bottom:3rem}
+.school-heading{background:linear-gradient(110deg,#104764,#087F9C 82%,#098FA9);color:#FFFFFF;padding:18px 25px;border-radius:15px;margin-bottom:11px;box-shadow:0 8px 22px rgba(12,72,104,.11);border-bottom:4px solid #EBB829}
+.school-heading h1{font-size:clamp(21px,2.6vw,29px);color:#FFFFFF;margin:2px 0}.school-heading p{color:#FFFFFF!important;margin:0;font-size:13px}
+.school-heading .tag{color:#FFDC66;letter-spacing:1.4px;font-size:11px;font-weight:800}
+[data-testid="stMetric"]{background:white;padding:17px;border:1px solid #DBEAF2;border-radius:13px;box-shadow:0 3px 14px #0A55780B}
+[data-testid="stMetricValue"]{color:#0F516D}
+[data-testid="stTabs"] [data-baseweb="tab-list"]{gap:6px;overflow-x:auto;padding:5px 2px 9px}
+[data-testid="stTabs"] button[data-baseweb="tab"]{background:#FFFFFF;border:1px solid #DCE9F2;border-radius:9px;color:#164762;white-space:nowrap;font-weight:650;padding:10px 12px}
+[data-testid="stTabs"] button[aria-selected="true"]{background:#E4F4FA;border:1px solid #087F9C;color:#076E8E}
+[data-testid="stTabs"] [data-baseweb="tab-highlight"]{background:#E6B525}
+.stButton button[kind="primary"],.stFormSubmitButton button[kind="primary"]{background:#0E7998!important;color:#FFFFFF!important;border:none!important;font-weight:700!important;border-radius:10px!important}
+.stButton button[kind="primary"]:hover,.stFormSubmitButton button[kind="primary"]:hover{background:#106583!important}
+[data-testid="stForm"]{background:#FFFFFF;border:1px solid #DCE9F0;border-radius:17px;padding:20px}
+.login-tag{text-align:center;font-size:11px;font-weight:800;letter-spacing:2px;color:#A87913;margin-top:6px}
+.login-title{text-align:center;color:#125071;font-size:clamp(24px,3vw,34px);font-weight:800;margin:10px 0}
+.login-sub{text-align:center;color:#587387;font-size:14px;margin-bottom:20px}
+.login-badge{margin:0 auto;width:105px;height:105px;border-radius:50%;background:#145170;border:4px solid #E8B928;display:flex;align-items:center;justify-content:center;font-size:48px}
+.notice{background:#E8F5FA;border-left:4px solid #0986A5;padding:12px 16px;border-radius:8px;color:#21556B}
+.tiny{color:#688195;font-size:12px}
+[data-testid="stDataFrame"]{border-radius:12px;overflow:hidden}
+</style>''',unsafe_allow_html=True)
+
+# Diseño móvil aislado: los estilos de PC permanecen intactos.
+st.markdown("""<style>
+.mobile-school-logo {display:none;}
+@media only screen and (max-width: 768px) {
+  .block-container {padding: .7rem .85rem 2rem !important;}
+  .mobile-school-logo {display:flex !important;align-items:center;justify-content:center;margin:0 auto 12px;}
+  .mobile-school-logo img {display:block;width:112px !important;height:auto !important;max-height:132px !important;object-fit:contain;}
+  .st-key-desktop_login_logo, .st-key-desktop_header_logo {display:none !important;}
+  .school-heading {padding:13px 14px !important;margin:0 0 8px !important;text-align:center;}
+  .school-heading h1 {font-size:21px !important;line-height:1.25 !important;}
+  .school-heading p {font-size:12px !important;}
+  .school-heading .tag {font-size:10px !important;}
+  .login-tag {font-size:10px !important;letter-spacing:1px !important;}
+  .login-title {font-size:25px !important;line-height:1.22 !important;}
+  .login-sub {font-size:12px !important;line-height:1.5 !important;}
+  /* BaseWeb usa div[role=tab], no necesariamente button. */
+  [data-testid="stTabs"] [data-baseweb="tab-list"] {overflow-x:auto !important;gap:6px !important;padding:6px 2px 12px !important;scrollbar-width:thin;}
+  [data-testid="stTabs"] [role="tab"] {
+    background:#FFFFFF !important;color:#143E58 !important;
+    border:1px solid #B8D4E2 !important;border-radius:9px !important;
+    padding:10px 12px !important;opacity:1 !important;
+    min-width:max-content !important;flex-shrink:0 !important;
+  }
+  [data-testid="stTabs"] [role="tab"] *,
+  [data-testid="stTabs"] [role="tab"] p,
+  [data-testid="stTabs"] [role="tab"] span {color:#143E58 !important;opacity:1 !important;font-size:14px !important;font-weight:700 !important;-webkit-text-fill-color:#143E58 !important;}
+  [data-testid="stTabs"] [role="tab"][aria-selected="true"] {background:#DDF2F9 !important;border-color:#087F9C !important;}
+  [data-testid="stTabs"] [role="tab"][aria-selected="true"] * {color:#075F7B !important;-webkit-text-fill-color:#075F7B !important;}
+  .stButton button {color:#173D59 !important;background:#FFFFFF !important;border:1px solid #B9CFDD !important;}
+  .stButton button * {color:inherit !important;opacity:1 !important;}
+  .stButton button[kind="primary"],.stFormSubmitButton button[kind="primary"] {color:white !important;background:#0E7998 !important;}
+  /* Fichas desplegables de alumnos y demás módulos: alto contraste móvil. */
+  [data-testid="stExpander"] {background:#FFFFFF !important;border:1px solid #B8D4E2 !important;border-radius:10px !important;overflow:hidden;}
+  [data-testid="stExpander"] details {background:#FFFFFF !important;color:#173D59 !important;}
+  [data-testid="stExpander"] summary,
+  [data-testid="stExpander"] [data-testid="stExpanderToggleIcon"] {background:#EAF5FA !important;color:#143E58 !important;opacity:1 !important;}
+  [data-testid="stExpander"] summary *,
+  [data-testid="stExpander"] summary p,
+  [data-testid="stExpander"] summary span {color:#143E58 !important;-webkit-text-fill-color:#143E58 !important;opacity:1 !important;font-weight:700 !important;}
+  [data-testid="stExpander"] [data-testid="stExpanderDetails"] {background:#FFFFFF !important;color:#173D59 !important;}
+  [data-testid="stExpander"] [data-testid="stExpanderDetails"] p,
+  [data-testid="stExpander"] [data-testid="stExpanderDetails"] li,
+  [data-testid="stExpander"] [data-testid="stExpanderDetails"] strong {color:#173D59 !important;-webkit-text-fill-color:#173D59 !important;}
+  /* Controles y resultados: contraste consistente en modo oscuro del navegador. */
+  [data-testid="stSelectbox"] [data-baseweb="select"],
+  [data-testid="stTextInput"] [data-baseweb="input"],
+  [data-testid="stTextArea"] [data-baseweb="textarea"] {
+    background:#FFFFFF !important;color:#173D59 !important;
+    border-radius:10px !important;
+  }
+  [data-testid="stSelectbox"] [data-baseweb="select"] *,
+  [data-testid="stTextInput"] input,
+  [data-testid="stTextArea"] textarea {
+    color:#173D59 !important;-webkit-text-fill-color:#173D59 !important;
+    opacity:1 !important;
+  }
+  [data-testid="stTextInput"] input::placeholder,
+  [data-testid="stTextArea"] textarea::placeholder {
+    color:#657B8A !important;-webkit-text-fill-color:#657B8A !important;
+    opacity:1 !important;
+  }
+  [data-testid="stWidgetLabel"] p,
+  [data-testid="stMarkdownContainer"] > p,
+  [data-testid="stCaptionContainer"] p,
+  [data-testid="stAlert"] p {
+    color:#173D59 !important;-webkit-text-fill-color:#173D59 !important;
+  }
+  [data-testid="stAlert"] {background:#E8F5FA !important;color:#173D59 !important;}
+  [data-testid="stMetricLabel"] *,[data-testid="stMetricValue"] * {color:#0F516D !important;}
+  [data-testid="stDownloadButton"] button,
+  [data-testid="stFormSubmitButton"] button {
+    background:#FFFFFF !important;color:#173D59 !important;
+    border:1px solid #B9CFDD !important;
+  }
+  [data-testid="stDownloadButton"] button *,
+  [data-testid="stFormSubmitButton"] button * {color:inherit !important;}
+  [data-testid="stDownloadButton"] button[kind="primary"],
+  [data-testid="stFormSubmitButton"] button[kind="primary"] {
+    background:#0E7998 !important;color:#FFFFFF !important;
+  }
+  /* Evita que los encabezados y datos de las fichas hereden texto oscuro sobre negro. */
+  [data-testid="stExpander"] [data-testid="stExpanderDetails"] *:not(button):not(svg):not(path) {
+    color:#173D59 !important;
+  }
+  /* En pantallas angostas, reducir separación sin alterar escritorio. */
+  [data-testid="stVerticalBlock"] {gap:.65rem;}
+  [data-testid="stForm"] {padding:12px !important;}
+  h1,h2,h3 {overflow-wrap:anywhere;}
+  [data-testid="stMetric"] {padding:10px !important;}
+}
+</style>""", unsafe_allow_html=True)
+
+# Imagen móvil separada para ubicar el escudo encima, sin tocar el diseño de PC.
+def mobile_school_logo():
+    if LOGO.is_file():
+        extension = 'png' if LOGO.suffix.lower() == '.png' else 'jpeg'
+        logo_data = base64.b64encode(LOGO.read_bytes()).decode('ascii')
+        st.markdown(f'<div class="mobile-school-logo"><img src="data:image/{extension};base64,{logo_data}" alt="Escudo Simón Bolívar"></div>', unsafe_allow_html=True)
+
+# Fotografia del colegio con capa blanca translucida: conserva las proporciones.
+# Si la imagen no existe, permanece el fondo claro original.
+if FONDO.is_file():
+    foto_base64 = base64.b64encode(FONDO.read_bytes()).decode('ascii')
+    st.markdown(f'''<style>
+    [data-testid="stAppViewContainer"] {{
+        background-color: #F4F7FB !important;
+        background-image:
+            linear-gradient(rgba(247,250,253,0.89), rgba(237,244,249,0.89)),
+            url("data:image/png;base64,{foto_base64}") !important;
+        background-size: cover !important;
+        background-position: center center !important;
+        background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
+    }}
+    [data-testid="stHeader"] {{background-color: transparent !important;}}
+    </style>''', unsafe_allow_html=True)
+
+# Contraste explícito para los avisos y el subtítulo institucional.
+# Evita depender de los estilos variables de st.info y del tema oscuro.
+st.markdown("""<style>
+.sb-info, .sb-info * {
+    display:block; background:#EAF5FC !important; color:#153C56 !important;
+    -webkit-text-fill-color:#153C56 !important; opacity:1 !important;
+    border-radius:10px; font-weight:600; font-size:1rem;
+}
+.sb-info {border:1px solid #B5D6E9; border-left:5px solid #087F9C;
+          padding:16px 18px; margin:8px 0 16px; line-height:1.5;}
+.school-heading p, .school-heading p * {
+    color:#FFFFFF !important; -webkit-text-fill-color:#FFFFFF !important;
+    opacity:1 !important;
+}
+@media (max-width:768px) {
+  .school-heading p, [data-testid="stAppViewContainer"] .school-heading p {
+    color:#FFFFFF !important;-webkit-text-fill-color:#FFFFFF !important;opacity:1 !important;
+  }
+}
+</style>""", unsafe_allow_html=True)
+
+# Ajustes finales V1.0: SOLO móvil. Sin cambios en operaciones ni escritorio.
+st.markdown("""<style>
+@media only screen and (max-width:768px) {
+  /* Selectores: incluir el control interno que BaseWeb pinta de oscuro. */
+  [data-testid="stSelectbox"] [data-baseweb="select"],
+  [data-testid="stSelectbox"] [data-baseweb="select"] > div,
+  [data-testid="stSelectbox"] [data-baseweb="select"] [role="combobox"] {
+    background-color:#FFFFFF !important;
+    color:#173D59 !important;
+    -webkit-text-fill-color:#173D59 !important;
+    color-scheme:light !important;
+    border-radius:10px !important;
+  }
+  [data-testid="stSelectbox"] [data-baseweb="select"] span,
+  [data-testid="stSelectbox"] [data-baseweb="select"] svg {
+    color:#173D59 !important;
+    fill:#173D59 !important;
+    -webkit-text-fill-color:#173D59 !important;
+  }
+  /* Lista de opciones al abrir el selector. */
+  [data-baseweb="popover"] [role="listbox"],
+  [data-baseweb="popover"] [role="option"] {
+    background:#FFFFFF !important;
+    color:#173D59 !important;
+    -webkit-text-fill-color:#173D59 !important;
+  }
+  /* Navegación: pista visual de desplazamiento sin esconder pestañas. */
+  [data-testid="stTabs"] [data-baseweb="tab-list"] {
+    overflow-x:auto !important;
+    scrollbar-width:thin !important;
+    scrollbar-color:#0E7998 #DCECF4 !important;
+    border-bottom:2px solid #C8DFEA !important;
+    padding-bottom:9px !important;
+  }
+  [data-testid="stTabs"] [data-baseweb="tab-list"]::-webkit-scrollbar {height:5px;}
+  [data-testid="stTabs"] [data-baseweb="tab-list"]::-webkit-scrollbar-thumb {background:#0E7998;border-radius:10px;}
+  /* Espaciado compacto en el panel, sin modificar las columnas ni el login. */
+  [data-testid="stTabs"] {margin-top:0 !important;}
+  [data-testid="stTabs"] [data-testid="stVerticalBlock"] {gap:.55rem !important;}
+  .school-heading {margin-bottom:4px !important;padding:12px 13px !important;}
+  .school-heading h1 {margin:3px 0 !important;}
+  [data-testid="stTabs"] h2, [data-testid="stTabs"] h3 {margin-top:.35rem !important;margin-bottom:.35rem !important;}
+  /* Avisos institucionales mantienen texto legible. */
+  .sb-info, .sb-info * {color:#153C56 !important;-webkit-text-fill-color:#153C56 !important;}
+}
+</style>""", unsafe_allow_html=True)
+
+# Ajuste final de selectores móviles: alcanza los contenedores internos de BaseWeb.
+# Se coloca al final de los estilos para tener prioridad sin cambiar escritorio.
+st.markdown("""<style>
+@media screen and (max-width: 768px) {
+  [data-testid="stSelectbox"] div[data-baseweb="select"],
+  [data-testid="stSelectbox"] div[data-baseweb="select"] > div,
+  [data-testid="stSelectbox"] div[data-baseweb="select"] div[role="combobox"],
+  [data-testid="stSelectbox"] div[data-baseweb="select"] div[data-testid="stSelectboxVirtualDropdown"],
+  [data-testid="stSelectbox"] div[data-baseweb="select"] div[class],
+  [data-testid="stSelectbox"] div[data-baseweb="select"] div[class] > div {
+    background-color:#FFFFFF !important;
+    color:#173D59 !important;
+    -webkit-text-fill-color:#173D59 !important;
+    color-scheme:light !important;
+  }
+  [data-testid="stSelectbox"] div[data-baseweb="select"] input,
+  [data-testid="stSelectbox"] div[data-baseweb="select"] span,
+  [data-testid="stSelectbox"] div[data-baseweb="select"] svg,
+  [data-testid="stSelectbox"] div[data-baseweb="select"] svg path {
+    color:#173D59 !important;
+    -webkit-text-fill-color:#173D59 !important;
+    fill:#173D59 !important;
+    opacity:1 !important;
+  }
+  [data-testid="stSelectbox"] div[data-baseweb="select"] > div {
+    border:1px solid #A8C6D8 !important;
+    border-radius:10px !important;
+  }
+  div[data-baseweb="popover"] ul,
+  div[data-baseweb="popover"] li,
+  div[data-baseweb="popover"] [role="option"],
+  div[data-baseweb="popover"] [role="listbox"] {
+    background-color:#FFFFFF !important;
+    color:#173D59 !important;
+    -webkit-text-fill-color:#173D59 !important;
+  }
+  div[data-baseweb="popover"] [aria-selected="true"] {
+    background-color:#DDF2F9 !important;
+  }
+}
+</style>""", unsafe_allow_html=True)
+
+# Corrección de controles BaseWeb para navegadores móviles en modo oscuro.
+# No modifica datos, consultas ni la distribución de escritorio.
+st.markdown("""<style>
+@media (max-width: 768px) {
+  :root { color-scheme: light; }
+  [data-testid="stSelectbox"] {
+    color-scheme: light !important;
+    --primary-color: #087F9C;
+    --secondary-background-color: #FFFFFF;
+    --text-color: #173D59;
+  }
+  /* El fondo visible es el DIV interno, no el contenedor stSelectbox. */
+  [data-testid="stSelectbox"] div[data-baseweb="select"] > div,
+  [data-testid="stSelectbox"] div[data-baseweb="select"] [role="combobox"],
+  [data-testid="stSelectbox"] div[data-baseweb="select"] [aria-expanded],
+  [data-testid="stSelectbox"] div[data-baseweb="select"] > div:first-child {
+    background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    color: #173D59 !important;
+    -webkit-text-fill-color: #173D59 !important;
+    border-color: #B5D6E9 !important;
+    color-scheme: light !important;
+  }
+  [data-testid="stSelectbox"] div[data-baseweb="select"] [role="combobox"] *,
+  [data-testid="stSelectbox"] div[data-baseweb="select"] [aria-expanded] *,
+  [data-testid="stSelectbox"] div[data-baseweb="select"] [data-testid="stMarkdownContainer"],
+  [data-testid="stSelectbox"] div[data-baseweb="select"] span {
+    color: #173D59 !important;
+    -webkit-text-fill-color: #173D59 !important;
+    opacity: 1 !important;
+  }
+  [data-testid="stSelectbox"] div[data-baseweb="select"] svg {
+    color: #173D59 !important;
+    fill: #173D59 !important;
+  }
+  [data-baseweb="popover"] [role="listbox"],
+  [data-baseweb="popover"] [role="option"],
+  [data-baseweb="menu"] [role="option"] {
+    background-color: #FFFFFF !important;
+    color: #173D59 !important;
+    -webkit-text-fill-color: #173D59 !important;
+  }
+}
+</style>""", unsafe_allow_html=True)
+
+def clean(s): return str(s or '').strip()
+def safe(s):return html.escape(clean(s))
+def search(s):
+    """Normaliza la búsqueda sin alterar los datos originales del estudiante."""
+    value = unicodedata.normalize('NFKD', str(s) if pd.notna(s) else '')
+    value = ''.join(c for c in value if not unicodedata.combining(c))
+    return re.sub(r'[^a-z0-9]+', ' ', value.casefold()).strip()
+def number(s):return re.sub(r'\D','',clean(s))
+def val(s):return clean(s) or 'No consignado'
+
+def get_auth():
+    try:return st.secrets['auth'],st.secrets['data']['fernet_key']
+    except Exception:
+        st.error('Configura [auth] y [data] en Secrets de Streamlit antes de iniciar.');st.stop()
+
+auth,key=get_auth()
+if 'logged' not in st.session_state:st.session_state.logged=False
+if 'attempts' not in st.session_state:st.session_state.attempts=0
+
+# Corrección exclusiva de los campos del formulario de acceso.
+# Mantiene intactos los módulos, la base de datos y el diseño de escritorio.
+st.markdown("""<style>
+[data-testid="stForm"] [data-testid="stTextInput"] [data-baseweb="input"],
+[data-testid="stForm"] [data-testid="stTextInput"] [data-baseweb="base-input"] {
+    background-color: #FFFFFF !important;
+    color-scheme: light !important;
+}
+[data-testid="stForm"] [data-testid="stTextInput"] input,
+[data-testid="stForm"] input[type="text"],
+[data-testid="stForm"] input[type="password"] {
+    background-color: #FFFFFF !important;
+    color: #173D59 !important;
+    -webkit-text-fill-color: #173D59 !important;
+    caret-color: #173D59 !important;
+    opacity: 1 !important;
+    color-scheme: light !important;
+}
+[data-testid="stForm"] [data-testid="stTextInput"] input::placeholder {
+    color: #64798A !important;
+    -webkit-text-fill-color: #64798A !important;
+    opacity: 1 !important;
+}
+[data-testid="stForm"] [data-testid="stTextInput"] label,
+[data-testid="stForm"] [data-testid="stTextInput"] label p {
+    color: #173D59 !important;
+    -webkit-text-fill-color: #173D59 !important;
+}
+</style>""", unsafe_allow_html=True)
+
+# Capa final de contraste para TODOS los componentes de Streamlit en móvil.
+# No altera el estilo de escritorio ni las operaciones del sistema.
+st.markdown("""<style>
+@media only screen and (max-width:768px) {
+  /* Textos comunes, títulos, ayuda, mensajes y fichas. */
+  [data-testid="stAppViewContainer"] {color:#173D59 !important;}
+  [data-testid="stAppViewContainer"] .stMarkdown:not(.school-heading) p,
+  [data-testid="stAppViewContainer"] [data-testid="stWidgetLabel"] *,
+  [data-testid="stAppViewContainer"] [data-testid="stCaptionContainer"] *,
+  [data-testid="stAppViewContainer"] [data-testid="stMetricLabel"] *,
+  [data-testid="stAppViewContainer"] [data-testid="stMetricValue"] *,
+  [data-testid="stAppViewContainer"] [data-testid="stMetricDelta"] *,
+  [data-testid="stAppViewContainer"] [data-testid="stExpanderDetails"] p,
+  [data-testid="stAppViewContainer"] [data-testid="stExpanderDetails"] li {
+    color:#173D59 !important;-webkit-text-fill-color:#173D59 !important;opacity:1 !important;
+  }
+  /* Alertas: el aviso informativo de la captura estaba azul oscuro sobre azul oscuro. */
+  [data-testid="stAlert"], [data-testid="stNotification"] {
+    background:#EAF5FC !important;border:1px solid #B5D6E9 !important;
+    color:#153C56 !important;
+  }
+  [data-testid="stAlert"] *, [data-testid="stNotification"] * {
+    color:#153C56 !important;-webkit-text-fill-color:#153C56 !important;
+    opacity:1 !important;
+  }
+  /* Selectores de nivel, sección, reportes y sus menús emergentes. */
+  [data-testid="stSelectbox"] [data-baseweb="select"],
+  [data-testid="stSelectbox"] [data-baseweb="select"] > div,
+  [data-testid="stMultiSelect"] [data-baseweb="select"],
+  [data-testid="stTextInput"] [data-baseweb="input"],
+  [data-testid="stTextArea"] [data-baseweb="textarea"] {
+    background:#FFFFFF !important;color:#173D59 !important;color-scheme:light !important;
+  }
+  [data-testid="stSelectbox"] [data-baseweb="select"] *,
+  [data-testid="stMultiSelect"] [data-baseweb="select"] *,
+  [data-testid="stTextInput"] input,
+  [data-testid="stTextArea"] textarea {
+    color:#173D59 !important;-webkit-text-fill-color:#173D59 !important;opacity:1 !important;
+  }
+  [data-testid="stTextInput"] input, [data-testid="stTextArea"] textarea {
+    background:#FFFFFF !important;caret-color:#173D59 !important;
+  }
+  [data-testid="stTextInput"] input::placeholder,
+  [data-testid="stTextArea"] textarea::placeholder {
+    color:#62798B !important;-webkit-text-fill-color:#62798B !important;opacity:1 !important;
+  }
+  [data-baseweb="popover"] [role="listbox"],
+  [data-baseweb="popover"] [role="option"],
+  [data-baseweb="menu"], [role="listbox"] {
+    background:#FFFFFF !important;color:#173D59 !important;
+  }
+  [data-baseweb="popover"] [role="option"] *, [role="listbox"] [role="option"] * {
+    color:#173D59 !important;-webkit-text-fill-color:#173D59 !important;
+  }
+  /* Navegación y fichas: contraste incluso cuando el navegador usa modo oscuro. */
+  [data-testid="stTabs"] [role="tab"] {background:#FFFFFF !important;color:#143E58 !important;}
+  [data-testid="stTabs"] [role="tab"] * {color:#143E58 !important;-webkit-text-fill-color:#143E58 !important;}
+  [data-testid="stExpander"] summary {background:#EAF5FA !important;}
+  [data-testid="stExpander"] summary * {color:#143E58 !important;-webkit-text-fill-color:#143E58 !important;}
+  [data-testid="stExpander"] [data-testid="stExpanderDetails"] {background:#FFFFFF !important;}
+  /* No blanquear texto de botones primarios: blanco sobre azul institucional. */
+  [data-testid="stFormSubmitButton"] button[kind="primary"],
+  [data-testid="stDownloadButton"] button[kind="primary"] {
+    background:#0E7998 !important;color:#FFFFFF !important;
+  }
+  [data-testid="stFormSubmitButton"] button[kind="primary"] *,
+  [data-testid="stDownloadButton"] button[kind="primary"] * {
+    color:#FFFFFF !important;-webkit-text-fill-color:#FFFFFF !important;
+  }
+}
+</style>""", unsafe_allow_html=True)
+
+# Ajustes de contraste para componentes que Streamlit pinta en oscuro.
+# Solo se aplican en celulares; no se alteran las funciones ni la vista de PC.
+st.markdown("""<style>
+@media only screen and (max-width:768px) {
+  /* Área para adjuntar Excel y su botón: texto siempre legible. */
+  [data-testid="stFileUploader"] [data-testid="stFileUploaderDropzone"],
+  [data-testid="stFileUploader"] section,
+  [data-testid="stFileUploader"] section > div {
+    background:#F3FAFE !important;
+    color:#173D59 !important;
+    border-color:#B6D4E4 !important;
+    color-scheme:light !important;
+  }
+  [data-testid="stFileUploader"] [data-testid="stFileUploaderDropzone"] *,
+  [data-testid="stFileUploader"] section p,
+  [data-testid="stFileUploader"] section small,
+  [data-testid="stFileUploader"] section span {
+    color:#173D59 !important;
+    -webkit-text-fill-color:#173D59 !important;
+    opacity:1 !important;
+  }
+  [data-testid="stFileUploader"] button,
+  [data-testid="stFileUploader"] [data-testid="stBaseButton-secondary"] {
+    background:#FFFFFF !important;
+    color:#125071 !important;
+    border:1px solid #8CB8D0 !important;
+  }
+  [data-testid="stFileUploader"] button *,
+  [data-testid="stFileUploader"] button span {
+    color:#125071 !important;
+    -webkit-text-fill-color:#125071 !important;
+  }
+  [data-testid="stFileUploader"] svg {color:#125071 !important;stroke:#125071 !important;}
+  /* Código en instrucciones, nombres de archivos y rutas. */
+  [data-testid="stAppViewContainer"] .stMarkdown code,
+  [data-testid="stAppViewContainer"] [data-testid="stExpanderDetails"] code {
+    background:#E7F2F9 !important;
+    color:#153C56 !important;
+    -webkit-text-fill-color:#153C56 !important;
+    padding:2px 5px !important;
+    border-radius:4px !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+  }
+  /* Textos de ayuda, avisos y etiquetas dentro de contenedores. */
+  [data-testid="stAppViewContainer"] [data-testid="stCaptionContainer"] *,
+  [data-testid="stAppViewContainer"] [data-testid="stFileUploader"] label *,
+  [data-testid="stAppViewContainer"] [data-testid="stAlert"] *,
+  [data-testid="stAppViewContainer"] [data-testid="stNotification"] * {
+    color:#173D59 !important;
+    -webkit-text-fill-color:#173D59 !important;
+    opacity:1 !important;
+  }
+}
+</style>""", unsafe_allow_html=True)
+
+# Opciones visibles sin depender de los menús desplegables BaseWeb.
+st.markdown("""<style>
+.sb-filter-label {color:#173D59!important;font-weight:750!important;margin:12px 0 5px!important;font-size:14px!important;}
+[data-testid="stRadio"] [role="radiogroup"] {gap:8px 12px!important;flex-wrap:wrap!important;}
+[data-testid="stRadio"] label {background:#FFFFFF!important;color:#173D59!important;border:1px solid #B7D3E2!important;border-radius:10px!important;padding:7px 11px!important;min-height:39px!important;cursor:pointer!important;}
+[data-testid="stRadio"] label *, [data-testid="stRadio"] label p {color:#173D59!important;-webkit-text-fill-color:#173D59!important;opacity:1!important;}
+[data-testid="stRadio"] input {accent-color:#087F9C!important;}
+[data-testid="stRadio"] label:has(input:checked) {background:#E5F5FA!important;border-color:#087F9C!important;}
+@media(max-width:768px){[data-testid="stRadio"] label {padding:6px 9px!important;min-height:36px!important;font-size:13px!important;}}
+</style>""",unsafe_allow_html=True)
+
+# Tarjeta propia, independiente del tema oscuro de Streamlit y del navegador.
+st.markdown("""<style>
+.sb-upload-guide {
+  background-color:#EFF8FD !important;
+  color:#153C56 !important;
+  border:1px solid #9DCBDD !important;
+  border-left:5px solid #087F9C !important;
+  border-radius:12px !important;
+  padding:15px 17px !important;
+  margin:10px 0 16px !important;
+  line-height:1.55 !important;
+  color-scheme:light !important;
+}
+.sb-upload-guide, .sb-upload-guide * {
+  color:#153C56 !important;
+  -webkit-text-fill-color:#153C56 !important;
+  text-shadow:none !important;
+  opacity:1 !important;
+  background:transparent !important;
+}
+.sb-upload-guide .sb-upload-title {font-weight:800 !important;font-size:1.04rem !important;margin-bottom:9px !important;}
+.sb-upload-guide .sb-upload-text {margin:0 0 8px !important;}
+.sb-upload-guide .sb-upload-warning {font-weight:750 !important;margin-top:8px !important;}
+@media(max-width:768px) {
+  /* El tema oscuro de Brave/Streamlit no debe producir texto oscuro sobre fondo oscuro. */
+  [data-testid="stAlert"], [data-testid="stAlert"] > div,
+  [data-testid="stAlertContent"], [data-testid="stNotification"] {
+    background-color:#EFF8FD !important;
+    color:#153C56 !important;
+    color-scheme:light !important;
+  }
+  [data-testid="stAlert"] *, [data-testid="stNotification"] * {
+    color:#153C56 !important;
+    -webkit-text-fill-color:#153C56 !important;
+    opacity:1 !important;
+  }
+}
+</style>""", unsafe_allow_html=True)
+
+if not st.session_state.logged:
+    st.markdown('''<style>[data-testid="stSidebar"],[data-testid="collapsedControl"]{display:none!important}.block-container{max-width:950px;padding-top:2rem}@media(max-width:768px){.block-container{padding-top:.65rem!important}}</style>''',unsafe_allow_html=True)
+    mobile_school_logo()
+    _,mid,_=st.columns([1,1.16,1])
+    with mid:
+        if LOGO.exists():
+            with st.container(key='desktop_login_logo'):
+                _,logo_col,_=st.columns([1,0.75,1])
+                with logo_col:st.image(str(LOGO),use_container_width=True)
+        else:st.markdown('<div class="login-badge">🏫</div>',unsafe_allow_html=True)
+        st.markdown('<div class="login-tag">PLATAFORMA DE USO EXCLUSIVO · DIRECCIÓN</div>',unsafe_allow_html=True)
+        st.markdown('<div class="login-title">Sistema Educativo<br>Simón Bolívar</div>',unsafe_allow_html=True)
+        st.markdown('<div class="login-sub"><b>I. E. N.° 82641 · Cajamarca, Perú</b><br>Gestión privada de matrícula, familias y estudiantes</div>',unsafe_allow_html=True)
+        with st.form('login'):
+            st.subheader('🔐 Acceso al sistema')
+            user=st.text_input('Usuario',placeholder='Escriba su usuario')
+            pwd=st.text_input('Contraseña',type='password',placeholder='Escriba su contraseña')
+            submitted=st.form_submit_button('Ingresar al sistema',use_container_width=True,type='primary')
+        if submitted:
+            if st.session_state.attempts>=8:
+                st.error('Límite de intentos alcanzado en esta sesión. Contacte al administrador.')
+            else:
+                try:
+                    digest=hashlib.pbkdf2_hmac('sha256',pwd.encode(),bytes.fromhex(str(auth['password_salt'])),int(auth['iterations'])).hex()
+                    valid_user=hmac.compare_digest(user.strip(),str(auth['username']))
+                    valid_pass=hmac.compare_digest(digest,str(auth['password_hash']))
+                except (KeyError,ValueError):
+                    st.error('Configuración de autenticación incorrecta.');st.stop()
+                if valid_user and valid_pass:
+                    st.session_state.logged=True;st.session_state.attempts=0;st.rerun()
+                else:
+                    st.session_state.attempts+=1;st.error('Usuario o contraseña incorrectos.')
+        st.caption('I. E. N.° 82641 · Acceso autorizado')
+    st.stop()
+
+@st.cache_data(show_spinner=False,ttl=1800)
+def cached_load(blob,key):return decrypt_frame(blob,key)
+try:db=cached_load(BASE.read_bytes(),key)
+except (InvalidToken,ValueError,FileNotFoundError,KeyError) as e:
+    st.error('No se pudo leer la base cifrada. Confirme la clave en Secrets y que exista matricula_2026.enc.');st.stop()
+
+# Los archivos cifrados antiguos no tenían estos campos: rellenar sin inventar datos.
+for column in FIELDS:
+    if column not in db.columns:db[column]=''
+db=db.fillna('')
+if db['ratificacion'].eq('').all():db['ratificacion']='Por verificar'
+
+mobile_school_logo()
+head_left,head_right=st.columns([9,1.35],vertical_alignment='center')
+with head_left:
+    a,b=st.columns([0.65,8],vertical_alignment='center')
+    with a:
+        if LOGO.exists():
+            with st.container(key='desktop_header_logo'):
+                st.image(str(LOGO),use_container_width=True)
+        else:st.markdown('## 🏫')
+    with b:
+        st.markdown('<div class="school-heading"><div class="tag">I.E.I N.° 82641 SIMÓN BOLÍVAR</div><h1>Gestión Escolar · Simón Bolívar</h1><p>Panel de Dirección  |  Matrícula 2026</p></div>',unsafe_allow_html=True)
+with head_right:
+    if st.button('🚪 Cerrar sesión',use_container_width=True):
+        st.session_state.logged=False;st.session_state.pop('consulta',None);st.rerun()
+
+# Información de interpretación disponible dentro de los módulos correspondientes.
+
+# La barra de navegación es HORIZONTAL y desplazable si la pantalla es pequeña.
+tabs=st.tabs(NAV)
+
+# Botones de los menús compactos con fondo blanco, incluso en navegadores oscuros.
+st.markdown("""<style>
+[data-testid="stPopover"] button {
+  background:#FFFFFF!important;
+  color:#173D59!important;
+  -webkit-text-fill-color:#173D59!important;
+  border:1px solid #B7D3E2!important;
+  border-radius:10px!important;
+  min-height:43px!important;
+  text-align:left!important;
+}
+[data-testid="stPopover"] button * {color:#173D59!important;-webkit-text-fill-color:#173D59!important;}
+[data-testid="stPopoverBody"] {background:#F7FBFE!important;color:#173D59!important;}
+[data-testid="stPopoverBody"] * {color:#173D59!important;}
+/* Filtros sobrios, sin fondos oscuros ni resaltados llamativos. */
+[data-testid="stPopover"] button {
+  background:#FFFFFF!important;
+  border:1px solid #CBD5E1!important;
+  border-radius:10px!important;
+  box-shadow:none!important;
+  color:#243B53!important;
+}
+[data-testid="stPopover"] button:hover {background:#F5F7FA!important;border-color:#94A3B8!important;}
+[data-testid="stPopover"] button * {color:#243B53!important;-webkit-text-fill-color:#243B53!important;}
+[data-testid="stPopoverBody"] {background:#FFFFFF!important;color:#243B53!important;border:1px solid #E2E8F0!important;}
+[data-testid="stPopoverBody"] [data-testid="stRadio"] label {background:transparent!important;color:#243B53!important;}
+[data-testid="stPopoverBody"] [data-testid="stRadio"] label:hover {background:#F1F5F9!important;}
+[data-testid="stPopoverBody"] [data-testid="stRadio"] label * {color:#243B53!important;-webkit-text-fill-color:#243B53!important;}
+</style>""",unsafe_allow_html=True)
+
+# Filtros con la misma paleta del formulario de usuario y contraseña.
+st.markdown("""<style>
+/* Botones de filtros: blanco, azul institucional y borde suave. */
+[data-testid="stPopover"] button {
+  background:#FFFFFF !important;
+  color:#173D59 !important;
+  -webkit-text-fill-color:#173D59 !important;
+  border:1px solid #B5D6E9 !important;
+  border-radius:10px !important;
+  box-shadow:none !important;
+  min-height:42px !important;
+  font-weight:600 !important;
+  color-scheme:light !important;
+}
+[data-testid="stPopover"] button:hover,
+[data-testid="stPopover"] button:focus-visible {
+  background:#E8F5FA !important;
+  border-color:#0E7998 !important;
+}
+[data-testid="stPopover"] button *,
+[data-testid="stPopover"] button svg {
+  color:#173D59 !important;
+  -webkit-text-fill-color:#173D59 !important;
+}
+/* Panel abierto y opciones: igual que los campos de acceso. */
+[data-testid="stPopoverBody"],
+[data-testid="stPopoverBody"] > div {
+  background:#FFFFFF !important;
+  color:#173D59 !important;
+  color-scheme:light !important;
+  border-radius:10px !important;
+}
+[data-testid="stPopoverBody"] [data-testid="stRadio"] label {
+  background:#FFFFFF !important;
+  border:1px solid transparent !important;
+  color:#173D59 !important;
+  border-radius:8px !important;
+  padding:8px 10px !important;
+}
+[data-testid="stPopoverBody"] [data-testid="stRadio"] label:hover {
+  background:#E8F5FA !important;
+  border-color:#B5D6E9 !important;
+}
+[data-testid="stPopoverBody"] [data-testid="stRadio"] label:has(input:checked) {
+  background:#E8F5FA !important;
+  border-color:#0E7998 !important;
+}
+[data-testid="stPopoverBody"] [data-testid="stRadio"] label *,
+[data-testid="stPopoverBody"] [data-testid="stRadio"] label p {
+  color:#173D59 !important;
+  -webkit-text-fill-color:#173D59 !important;
+}
+[data-testid="stPopoverBody"] [data-testid="stRadio"] input {
+  accent-color:#0E7998 !important;
+}
+</style>""",unsafe_allow_html=True)
+
+# Menús desplegables compactos, con estilo equivalente al acceso de usuario.
+st.markdown("""<style>
+[data-testid="stSelectbox"] [data-baseweb="select"] > div {
+    background:#FFFFFF !important;
+    border:1px solid #B5D6E9 !important;
+    border-radius:10px !important;
+    color:#173D59 !important;
+    min-height:45px !important;
+}
+[data-testid="stSelectbox"] [data-baseweb="select"] span,
+[data-testid="stSelectbox"] [data-baseweb="select"] input,
+[data-testid="stSelectbox"] [data-baseweb="select"] svg {
+    color:#173D59 !important;
+    -webkit-text-fill-color:#173D59 !important;
+    fill:#173D59 !important;
+}
+/* Las opciones se dibujan fuera del contenedor principal en un portal. */
+div[data-baseweb="popover"] [role="listbox"],
+div[data-baseweb="popover"] ul,
+div[data-baseweb="popover"] [role="option"] {
+    background:#FFFFFF !important;
+    color:#173D59 !important;
+    -webkit-text-fill-color:#173D59 !important;
+}
+div[data-baseweb="popover"] [role="option"] *,
+div[data-baseweb="popover"] li * {
+    color:#173D59 !important;
+    -webkit-text-fill-color:#173D59 !important;
+}
+div[data-baseweb="popover"] [role="option"][aria-selected="true"] {
+    background:#EAF5FA !important;
+}
+div[data-baseweb="popover"] [role="option"]:hover {
+    background:#F1F7FB !important;
+}
+</style>""", unsafe_allow_html=True)
+
+# Listas personalizadas: evitan el selector nativo oscuro del navegador móvil.
+st.markdown("""<style>
+[data-testid="stPopover"] > button,
+[data-testid="stPopover"] button {
+  background:#FFFFFF !important;
+  color:#173D59 !important;
+  -webkit-text-fill-color:#173D59 !important;
+  border:1px solid #B5D6E9 !important;
+  border-radius:10px !important;
+  min-height:46px !important;
+  width:100% !important;
+  justify-content:space-between !important;
+  text-align:left !important;
+}
+[data-testid="stPopover"] button * {color:#173D59 !important;-webkit-text-fill-color:#173D59 !important;}
+[data-testid="stPopoverBody"] {background:#FFFFFF !important;color:#173D59 !important;}
+[data-testid="stPopoverBody"] [data-testid="stButton"] button {
+  background:#FFFFFF !important;color:#173D59 !important;
+  -webkit-text-fill-color:#173D59 !important;
+  border:1px solid #E2EBF1 !important;border-radius:8px !important;
+  width:100% !important;min-height:39px !important;
+  text-align:left !important;justify-content:flex-start !important;
+}
+[data-testid="stPopoverBody"] [data-testid="stButton"] button:hover {
+  background:#EAF5FA !important;border-color:#0E7998 !important;
+}
+[data-testid="stPopoverBody"] [data-testid="stButton"] button[kind="primary"] {
+  background:#EAF5FA !important;border:1px solid #0E7998 !important;
+  color:#173D59 !important;
+}
+[data-testid="stPopoverBody"] [data-testid="stButton"] button * {
+  color:#173D59 !important;-webkit-text-fill-color:#173D59 !important;
+}
+</style>""",unsafe_allow_html=True)
+
+def filters(frame,prefix):
+    level_key=f'{prefix}_nivel'
+    section_key=f'{prefix}_seccion'
+    levels=['Todos','Primaria','Secundaria']
+    if st.session_state.get(level_key) not in levels:
+        st.session_state[level_key]='Todos'
+
+    level=st.session_state[level_key]
+    sub=frame if level=='Todos' else frame[frame['nivel']==level]
+    sections=['Todos']+sorted(sub['seccion'].dropna().astype(str).unique().tolist())
+    if st.session_state.get(section_key) not in sections:
+        st.session_state[section_key]='Todos'
+
+    a,b=st.columns(2)
+    with a:
+        st.markdown('**Nivel**')
+        with st.popover(f"{st.session_state[level_key]}  ▾",use_container_width=True):
+            for idx,option in enumerate(levels):
+                if st.button(option,key=f'{prefix}_nivel_opt_{idx}',use_container_width=True,
+                             type='primary' if option==level else 'secondary'):
+                    st.session_state[level_key]=option
+                    st.session_state[section_key]='Todos'
+                    st.rerun()
+    with b:
+        st.markdown('**Grado / sección**')
+        with st.popover(f"{st.session_state[section_key]}  ▾",use_container_width=True):
+            for idx,option in enumerate(sections):
+                if st.button(option,key=f'{prefix}_seccion_opt_{idx}',use_container_width=True,
+                             type='primary' if option==st.session_state[section_key] else 'secondary'):
+                    st.session_state[section_key]=option
+                    st.rerun()
+
+    section=st.session_state[section_key]
+    return sub if section=='Todos' else sub[sub['seccion'].astype(str)==section]
+
+def student_card(r):
+    with st.expander(f"🎓 {val(r['alumno'])} · {r['nivel']} {r['seccion']}"):
+        p,m=st.columns(2)
+        p.write('**DNI estudiante:** '+val(r['dni_alumno']))
+        p.write('**Padre:** '+val(r['padre']))
+        p.write('**Madre:** '+val(r['madre']))
+        p.write('**Situación final:** '+val(r['situacion_final']))
+        m.write('**DNI responsable:** '+val(r['dni_responsable']))
+        m.write('**Tipo responsable:** '+val(r['tipo_responsable']))
+        m.write('**Celular:** '+val(r['celular']))
+        m.write('**Domicilio:** '+val(r['domicilio']))
+        if clean(r['observaciones']):st.write('**Observaciones:** '+clean(r['observaciones']))
+        with st.expander('Información del registro'):
+            st.caption('Archivo: '+val(r['origen'])+' · Fila: '+val(r['fila_origen']))
+
+def match_rows(frame,q,columns):
+    """Busca sin tildes, sin distinguir mayúsculas y en cualquier orden de palabras."""
+    q=search(q)
+    if len(q)<2:return frame.iloc[0:0]
+    words=q.split()
+    def matches(value):
+        normalized=search(value)
+        tokens=normalized.split()
+        return q in normalized or all(any(token.startswith(word) for token in tokens) for word in words)
+    return frame[frame.apply(lambda r:any(matches(r[c]) for c in columns),axis=1)]
+
+with tabs[0]:
+    st.subheader('🔎 Buscar estudiantes')
+    x=filters(db,'alumnos')
+    query=st.text_input('Nombre, apellido o DNI de estudiante',placeholder='Escribe al menos 2 caracteres',key='consulta')
+    if len(search(query))<2:st.markdown('<div class="sb-info">Escribe un nombre o DNI para consultar una ficha.</div>', unsafe_allow_html=True)
+    else:
+        found=match_rows(x,query,['alumno','dni_alumno'])
+        st.write(f'**{len(found)} resultado(s)**')
+        for _,record in found.head(70).iterrows():student_card(record)
+        if len(found)>70:st.warning('Hay más de 70 resultados. Escribe más caracteres.')
+
+with tabs[1]:
+    st.subheader('👨‍👩‍👧 Padres, madres, responsables y hermanos')
+    x=filters(db,'familias')
+    q=st.text_input('Buscar nombre o DNI del padre, madre o responsable',key='fquery')
+    if len(search(q))<2:st.markdown('<div class="sb-info">Busca por nombres del padre o madre, o por DNI del responsable de matrícula.</div>', unsafe_allow_html=True)
+    else:
+        matches=match_rows(x,q,['padre','madre','dni_responsable'])
+        st.write(f'**{len(matches)} ficha(s) coincidente(s)**')
+        groups={}
+        for _,r in matches.iterrows():
+            for role,col in [('Padre','padre'),('Madre','madre')]:
+                name=clean(r[col])
+                if not name or norm(name) in {'no tiene','no consigna','fallecido','s/n','no cuenta'}:continue
+                by_name=search(q) in search(name)
+                by_dni=number(q) and (number(q) in number(r['dni_responsable'])) and r['tipo_responsable']==role.lower()
+                if by_name or by_dni:groups[(role,search(name))]=(role,name,col)
+        for (_k,(_role,name,col)) in list(groups.items())[:60]:
+            children=x[x[col].map(search)==search(name)].drop_duplicates(subset=['nivel','seccion','alumno'])
+            st.markdown(f'#### 👤 {safe(name)} · {_role} · {len(children)} alumno(s) asociado(s)')
+            for _,r in children.iterrows():
+                st.markdown(f"- **{safe(r['alumno'])}** — {safe(r['nivel'])} · {safe(r['seccion'])} · DNI: {safe(val(r['dni_alumno']))}")
+        # Un DNI de apoderado puede existir sin relación especificada como padre/madre.
+        direct=matches[matches['dni_responsable'].map(lambda v:number(q) in number(v) if number(q) else False)]
+        if not direct.empty:
+            st.markdown('#### 📇 Fichas asociadas al DNI del responsable')
+            for _,r in direct.head(30).iterrows():student_card(r)
+        with st.expander('Acerca de las coincidencias familiares'):
+            st.caption('Las personas con el mismo nombre podrían ser distintas. Verifica el parentesco en las fichas originales.')
+
+with tabs[2]:
+    st.subheader('📋 Ratificación y situación de matrícula')
+    x=filters(db,'rati')
+    with st.expander('Información sobre los estados'):
+        st.caption('“Por verificar” indica que la fuente no contiene una confirmación explícita de ratificación; no equivale a pendiente oficial.')
+    c1,c2,c3=st.columns(3)
+    c1.metric('Fichas en selección',len(x))
+    c2.metric('Con situación final',int(x['situacion_final'].astype(str).str.strip().ne('').sum()))
+    c3.metric('Por verificar',int(x['ratificacion'].eq('Por verificar').sum()))
+    q=st.text_input('Filtrar por estudiante, situación u observación',key='ratiquery')
+    view=match_rows(x,q,['alumno','dni_alumno','situacion_final','observaciones']) if q.strip() else x
+    cols=['nivel','seccion','alumno','dni_alumno','situacion_final','ratificacion','observaciones']
+    st.dataframe(view[cols].rename(columns={'nivel':'Nivel','seccion':'Aula','alumno':'Estudiante','dni_alumno':'DNI','situacion_final':'Situación final (Excel)','ratificacion':'Ratificación (verificación)','observaciones':'Observaciones'}),hide_index=True,use_container_width=True,height=480)
+
+with tabs[3]:
+    st.subheader('🧾 Recibos, montos y APAFA')
+    x=filters(db,'apafa')
+    with st.expander('Información sobre recibos y montos'):
+        st.caption('Los importes y números de recibo proceden de las fichas. La verificación de pagos corresponde a la institución.')
+    c1,c2=st.columns(2)
+    c1.metric('Fichas con dato de recibo',int(x['recibo'].astype(str).str.strip().ne('').sum()))
+    c2.metric('Fichas con dato de monto / APAFA',int(x['monto'].astype(str).str.strip().ne('').sum()))
+    q=st.text_input('Buscar recibo, nombre o DNI',key='recquery')
+    view=match_rows(x,q,['recibo','alumno','dni_alumno']) if q.strip() else x
+    cols=['nivel','seccion','alumno','recibo','monto','observaciones']
+    st.dataframe(view[cols].rename(columns={'nivel':'Nivel','seccion':'Aula','alumno':'Estudiante','recibo':'Recibo consignado','monto':'Monto / APAFA consignado','observaciones':'Observaciones'}),hide_index=True,use_container_width=True,height=470)
+
+with tabs[4]:
+    st.subheader('📊 Estadísticas institucionales')
+    x=filters(db,'estad')
+    m1,m2,m3=st.columns(3)
+    m1.metric('Fichas de alumnos',len(x))
+    m2.metric('Aulas registradas',x[['nivel','seccion']].drop_duplicates().shape[0])
+    m3.metric('Con DNI alumno',int(x['dni_alumno'].astype(str).str.fullmatch(r'\d{8}').sum()))
+    counts=x.groupby(['nivel','seccion'],as_index=False).size().rename(columns={'size':'Estudiantes'})
+    if len(counts):
+        chart=px.bar(counts,x='seccion',y='Estudiantes',color='nivel',barmode='group',text='Estudiantes',color_discrete_map={'Primaria':'#0787A9','Secundaria':'#E7B528'})
+        chart.update_layout(height=420,plot_bgcolor='white',paper_bgcolor='white',xaxis_title='Grado y sección')
+        st.plotly_chart(chart,use_container_width=True)
+    st.dataframe(counts,hide_index=True,use_container_width=True)
+
+
+with tabs[5]:
+    st.subheader('📥 Reportes de Dirección')
+    with st.expander('Uso de reportes'):
+        st.caption('Los reportes pueden incluir datos personales. Úsalos únicamente para fines institucionales autorizados.')
+    x=filters(db,'report')
+    type_=st.radio('Contenido del reporte',['Resumen por aula','Fichas de matrícula','Control de ratificación','Registros de recibos'],horizontal=True)
+    if type_=='Resumen por aula':
+        report=x.groupby(['nivel','seccion'],as_index=False).size().rename(columns={'size':'Fichas'})
+    elif type_=='Control de ratificación':report=x[['nivel','seccion','alumno','dni_alumno','situacion_final','ratificacion','observaciones']]
+    elif type_=='Registros de recibos':report=x[['nivel','seccion','alumno','recibo','monto','observaciones']]
+    else:report=x[[c for c in FIELDS if c in x.columns]]
+    st.dataframe(report.head(300),use_container_width=True,hide_index=True)
+    st.download_button('⬇️ Descargar CSV (compatible con Excel)',data=report.to_csv(index=False).encode('utf-8-sig'),file_name='reporte_direccion_2026.csv',mime='text/csv',use_container_width=True)
+
+with tabs[6]:
+    st.subheader('✅ Control de datos incompletos')
+    x=filters(db,'calidad')
+    a,b,c=st.columns(3)
+    a.metric('Sin DNI alumno válido',int((~x['dni_alumno'].astype(str).str.fullmatch(r'\d{8}')).sum()))
+    b.metric('Sin DNI responsable válido',int((~x['dni_responsable'].astype(str).str.fullmatch(r'\d{8}')).sum()))
+    c.metric('Sin celular',int(x['celular'].astype(str).str.strip().eq('').sum()))
+    failures=x[(~x['dni_alumno'].astype(str).str.fullmatch(r'\d{8}')) | (~x['dni_responsable'].astype(str).str.fullmatch(r'\d{8}')) | x['celular'].astype(str).str.strip().eq('')]
+    st.dataframe(failures[['nivel','seccion','alumno','dni_alumno','dni_responsable','celular']],hide_index=True,use_container_width=True,height=420)
+
+
+with tabs[7]:
+    st.subheader('🔄 Actualización de matrícula')
+    st.caption('Importa una nueva versión de los registros de primaria y secundaria.')
+    with st.container(border=True):
+        st.markdown('**Archivos de matrícula**')
+        st.markdown("""<div class="sb-upload-guide" role="note">
+          <div class="sb-upload-title">📁 ¿Cómo actualizar la matrícula?</div>
+          <div class="sb-upload-text">Selecciona <strong>3 archivos Excel</strong>:
+          <strong>Primaria</strong>, <strong>1.° de Secundaria</strong> y
+          <strong>2.° a 5.° de Secundaria</strong>.</div>
+          <div class="sb-upload-text">Después, revisa la información y descarga la nueva base cifrada.</div>
+          <div class="sb-upload-warning">Importante: los datos actuales no se reemplazan automáticamente.</div>
+          </div>""", unsafe_allow_html=True)
+        uploads=st.file_uploader('Seleccionar archivos Excel',type=['xlsx'],accept_multiple_files=True,key='upfiles',label_visibility='collapsed')
+        if uploads:
+            if len(uploads)!=3:
+                st.warning('Para continuar, selecciona los tres archivos Excel.')
+            else:
+                try:
+                    current=[(f.name,f.getvalue()) for f in uploads]
+                    has_primary=sum('primaria' in norm(name) for name,_ in current)
+                    if has_primary!=1:
+                        st.error('No se identifica un único archivo de primaria. Revisa los nombres.')
+                    else:
+                        with st.spinner('Procesando matrícula…'):
+                            new,warnings=parse_books(current)
+                        c1,c2=st.columns(2)
+                        c1.metric('Fichas encontradas',len(new))
+                        c2.metric('Grados y secciones',new[['nivel','seccion']].drop_duplicates().shape[0])
+                        current_rooms=set(zip(db['nivel'],db['seccion']))
+                        new_rooms=set(zip(new['nivel'],new['seccion']))
+                        if len(new)<len(db)*0.75 or len(new_rooms)<len(current_rooms)*0.75:
+                            st.error('Los nuevos archivos contienen considerablemente menos fichas o aulas. Comprueba los Excel antes de continuar.')
+                        else:
+                            st.markdown('**Vista previa por sección**')
+                            st.dataframe(new.groupby(['nivel','seccion']).size().rename('Fichas').reset_index(),hide_index=True,use_container_width=True)
+                            if warnings:
+                                with st.expander('Observaciones sobre la importación'):
+                                    for w in warnings[:12]: st.write('• '+w)
+                            encrypted=encrypt_frame(new,key)
+                            st.download_button('⬇️ Generar base actualizada',data=encrypted,file_name='matricula_2026.enc',mime='application/octet-stream',type='primary',use_container_width=True)
+                except Exception:
+                    st.error('No se pudieron procesar los archivos. Verifica su estructura; la base actual no se modificó.')
+    with st.expander('Instrucciones para el administrador'):
+        st.markdown('**Solo para el administrador:** Cuando hayas revisado la vista previa, descarga `matricula_2026.enc`. En el repositorio privado `simon-bolivar-direccion/buscador_simon_bolivar`, reemplaza únicamente el archivo cifrado del mismo nombre y confirma los cambios. **No subas los Excel originales ni las contraseñas o claves.** El archivo de Primaria debe incluir la palabra **PRIMARIA** en su nombre. Si tienes dudas, conserva la base anterior y solicita ayuda antes de reemplazarla.')
+
+st.divider()
+st.caption('I.E.I N.° 82641 Simón Bolívar · Dirección · 2026')
