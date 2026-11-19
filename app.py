@@ -4,7 +4,7 @@ import json
 import mimetypes
 import streamlit as st
 
-st.set_page_config(page_title="I.E.I. N.º 82641 Simón Bolívar", page_icon="🏫", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="I.E.I N.º 82641 Simón Bolívar", page_icon="🏫", layout="wide", initial_sidebar_state="collapsed")
 base = Path(__file__).parent
 assets = base / "assets"
 html = (base / "index.html").read_text(encoding="utf-8")
