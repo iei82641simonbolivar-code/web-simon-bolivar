@@ -60,3 +60,37 @@ document.getElementById('close-dialog')?.addEventListener('click',()=>lightbox.c
 lightbox?.addEventListener('click',e=>{if(e.target===lightbox)lightbox.close();});
 
 // El código mantiene una galería segura: fotos ausentes no muestran bloques rotos.
+
+
+// Animacion de entrada discreta, con soporte para filtros y accesibilidad.
+(function setupScrollReveal(){
+ const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+ const targets=[...document.querySelectorAll('.section .heading, .institution-info, .institution-photo, .level, .gallery-card, .info-banner, .news-clean, .contact-about, .social-card')];
+ if(reduce.matches || !('IntersectionObserver' in window)) return;
+ const observer=new IntersectionObserver(entries=>{
+  for(const entry of entries){
+   if(!entry.isIntersecting)continue;
+   entry.target.classList.add('is-visible');
+   observer.unobserve(entry.target);
+  }
+ },{threshold:0.08,rootMargin:'0px 0px -18px 0px'});
+ for(const el of targets){
+  // No ocultar elementos que ya aparecen en pantalla al comenzar.
+  if(el.getBoundingClientRect().top < window.innerHeight * .96)continue;
+  el.classList.add('reveal-ready');
+  observer.observe(el);
+ }
+ // Respeta cambio de preferencia de movimiento durante la navegacion.
+ reduce.addEventListener?.('change',e=>{if(e.matches)targets.forEach(el=>el.classList.add('is-visible'));});
+})();
+
+// Evita cargar/reproducir video si se solicitan movimientos reducidos.
+(function setupHeroVideo(){
+ const video=document.querySelector('.hero-background-video');
+ if(!video)return;
+ const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+ function sync(){if(reduce.matches){video.pause();return;}video.play().catch(()=>{});}
+ sync();
+ reduce.addEventListener?.('change',sync);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();else sync();});
+})();
