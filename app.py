@@ -38,6 +38,17 @@ patio = images.get("patio.jpg")
 if patio:
     css += f'\n.hero {{background-image:linear-gradient(rgba(5,24,46,.74),rgba(5,24,46,.72)),url("{patio}")!important;}}\n'
 
+# Streamlit inserta HTML mediante srcdoc: las rutas assets/ no son accesibles
+# directamente desde el iframe. Incrustamos el MP4 local como data URL.
+# Conservamos patio.jpg como imagen de respaldo para navegadores sin video.
+video_path = assets / "fachada-animada.mp4"
+if video_path.is_file():
+    video_data = base64.b64encode(video_path.read_bytes()).decode("ascii")
+    html = html.replace(
+        'src="assets/fachada-animada.mp4"',
+        f'src="data:video/mp4;base64,{video_data}"',
+    )
+
 html = html.replace('<link rel="stylesheet" href="styles.css">', f'<style>{css}</style>')
 html = html.replace('<script src="config.js"></script>', f'<script>{config}</script>')
 html = html.replace('<script src="script.js"></script>', f'<script>window.SCHOOL_IMAGES = {json.dumps(images)};\n{script}</script>')
