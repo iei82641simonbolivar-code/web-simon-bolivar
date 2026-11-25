@@ -252,3 +252,17 @@ footer .footer-content a {text-underline-offset:4px;font-weight:700;}
 .sia-start[aria-disabled="true"]{background:#788b84;cursor:not-allowed}
 @media(max-width:480px){.sia-widget{right:14px;bottom:14px}.sia-panel-body{height:145px}.sia-launcher{width:60px;height:60px}}
 @media(prefers-reduced-motion:reduce){.sia-launcher,.sia-start{transition:none}}
+
+/* Restauración exclusiva del comportamiento del encabezado original.
+   El menú permanece accesible cuando se navega por secciones. */
+html { scroll-padding-top: 105px; }
+body > header.header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000;
+}
+section[id] { scroll-margin-top: 105px; }
+@media (max-width: 620px) {
+  html { scroll-padding-top: 90px; }
+  section[id] { scroll-margin-top: 90px; }
+}
