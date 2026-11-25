@@ -215,3 +215,40 @@ footer .footer-content a {text-underline-offset:4px;font-weight:700;}
   .hero-video-shade { background:linear-gradient(110deg,rgba(5,24,46,.86),rgba(5,24,46,.64)); }
   .hero-background-video { object-position:39% center; }
 }
+
+
+/* Historia institucional: ampliación de Sobre nosotros */
+.school-history{margin-top:34px;padding:30px;border:1px solid #d9e5ed;background:linear-gradient(135deg,#f6fafc,#eef7f5);border-radius:24px}
+.school-history-intro{max-width:850px}
+.history-eyebrow{display:inline-block;color:#078267;font-size:.83rem;font-weight:800;letter-spacing:.055em;text-transform:uppercase;margin-bottom:7px}
+.school-history h3{color:#102a4d;font-size:clamp(1.5rem,2.5vw,2rem);margin:0 0 12px}
+.school-history-intro p{color:#35516c;line-height:1.7;margin:0 0 24px}
+.history-timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.history-milestone{background:#fff;border:1px solid #dce9ee;border-radius:17px;padding:20px;box-shadow:0 7px 18px rgba(16,42,77,.05)}
+.history-year{display:inline-block;color:#087f68;background:#e6f6ee;padding:7px 13px;border-radius:999px;font-weight:850;letter-spacing:.02em}
+.history-milestone h4{color:#102a4d;margin:13px 0 8px;font-size:1.04rem}
+.history-milestone p{color:#35516c;line-height:1.6;margin:0;font-size:.95rem}
+@media(max-width:760px){.history-timeline{grid-template-columns:1fr}.school-history{padding:22px}}
+
+/* Ventana flotante de SIA: sustituye el antiguo enlace directo de WhatsApp */
+.sia-widget{position:fixed;right:22px;bottom:22px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:12px;font-family:inherit}
+.sia-launcher{width:65px;height:65px;border:5px solid #b3eed0;border-radius:50%;background:#00aa59;color:#fff;box-shadow:0 9px 25px #0003;display:grid;place-items:center;cursor:pointer;transition:transform .2s ease,box-shadow .2s ease}
+.sia-launcher:hover{transform:translateY(-3px);box-shadow:0 12px 28px #0004}
+.sia-launcher svg{width:36px;height:36px}
+.sia-launcher:focus-visible,.sia-close:focus-visible,.sia-start:focus-visible{outline:3px solid #f9c74f;outline-offset:3px}
+.sia-panel{width:min(365px,calc(100vw - 30px));background:#f5f2ed;border-radius:19px;box-shadow:0 18px 50px rgba(3,33,30,.25);overflow:hidden;color:#172d32}
+.sia-panel[hidden]{display:none!important}
+.sia-panel-header{display:flex;align-items:center;gap:12px;background:#007d69;color:#fff;padding:15px 16px}
+.sia-avatar{width:50px;height:50px;object-fit:contain;background:#fff;border-radius:50%;padding:4px;flex:none}
+.sia-heading{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+.sia-heading strong{font-size:1.03rem;line-height:1.25;color:#fff}
+.sia-heading span{color:#d3f5ee;font-size:.94rem}
+.sia-close{background:transparent;border:0;color:#c3e7df;font-size:35px;line-height:1;cursor:pointer;padding:2px 5px}
+.sia-panel-body{height:177px;padding:14px 13px;overflow:auto}
+.sia-greeting{background:#fff;box-shadow:0 1px 3px #0000000d;padding:14px 16px;border-radius:11px;max-width:95%;line-height:1.55;font-size:.96rem}
+.sia-panel-footer{border-top:1px solid #ddd9d2;padding:12px;background:#f7f4ef}
+.sia-start{display:flex;gap:8px;align-items:center;justify-content:center;text-align:center;background:#1ecc60;color:#fff!important;border-radius:18px;padding:17px 12px;text-decoration:none;font-weight:750;font-size:1rem;transition:background .2s}
+.sia-start:hover{background:#10ae50}
+.sia-start[aria-disabled="true"]{background:#788b84;cursor:not-allowed}
+@media(max-width:480px){.sia-widget{right:14px;bottom:14px}.sia-panel-body{height:145px}.sia-launcher{width:60px;height:60px}}
+@media(prefers-reduced-motion:reduce){.sia-launcher,.sia-start{transition:none}}
