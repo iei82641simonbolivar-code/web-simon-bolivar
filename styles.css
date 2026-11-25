@@ -253,14 +253,39 @@ footer .footer-content a {text-underline-offset:4px;font-weight:700;}
 @media(max-width:480px){.sia-widget{right:14px;bottom:14px}.sia-panel-body{height:145px}.sia-launcher{width:60px;height:60px}}
 @media(prefers-reduced-motion:reduce){.sia-launcher,.sia-start{transition:none}}
 
-/* Restauración exclusiva del comportamiento del encabezado original.
-   El menú permanece accesible cuando se navega por secciones. */
-html { scroll-padding-top: 105px; }
-body > header.header {
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 1000;
+/* MENÚ DE ENCABEZADO — Restauración de enlaces visibles en escritorio.
+   Solo afecta a la navegación; no cambia SIA ni Nuestra historia. */
+@media (min-width: 821px) {
+  .header .nav { gap: 10px; }
+  .header .brand { flex: 0 1 auto; min-width: 0; gap: 9px; font-size: .82rem; }
+  .header .brand .logo { width: 52px; height: 52px; flex-shrink: 0; }
+  .header .menu-toggle { display: none !important; }
+  .header #nav-menu {
+    display: flex !important;
+    position: static !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: clamp(5px, 0.85vw, 14px);
+    min-width: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  .header #nav-menu a { font-size: clamp(.69rem, .85vw, .84rem); white-space: nowrap; }
+  .header #nav-menu .nav-contact { width: auto !important; padding: 8px 9px; }
 }
+/* En pantallas pequeñas se conserva el menú hamburguesa original. */
+@media (max-width: 820px) {
+  .header .menu-toggle { display: block; }
+  .header #nav-menu { display:none; position:absolute; top:100%; left:0; right:0; }
+  .header #nav-menu.open { display:flex; }
+}
+.header { position:sticky; top:0; z-index:1000; }
+html { scroll-padding-top: 105px; }
 section[id] { scroll-margin-top: 105px; }
 @media (max-width: 620px) {
   html { scroll-padding-top: 90px; }
