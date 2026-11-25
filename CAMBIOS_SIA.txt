@@ -1,0 +1,10 @@
+CAMBIOS INCLUIDOS EN ESTA VERSIÓN
+
+1. Reemplazado botón simple de WhatsApp por una ventana flotante SIA (ícono, saludo, botón Iniciar conversación).
+2. Añadida sección Nuestra historia dentro de Sobre nosotros (1978, 2017, 2020). Verificar fechas con Dirección antes de difundir como historia oficial.
+3. Conservados menú, fotos, video, galería, estilos existentes y demás secciones.
+4. Configuración del número WhatsApp: editar config.js -> whatsappNumber.
+
+AVISO: El archivo original ya mostraba públicamente el número 51901790616 en el enlace del botón WhatsApp. Esta edición lo conserva para evitar romper el acceso existente. Antes de publicar, verifica que ese número sea el correcto y que tengas autorización para difundirlo. Para dejar el botón sin enlace mientras consiguen un número institucional, cambia whatsappNumber a una cadena vacía ("").
+
+El botón abre WhatsApp; para que SIA responda, WAHA, Docker y n8n deben estar activos y vinculados al mismo número.
