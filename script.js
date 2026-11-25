@@ -94,3 +94,36 @@ lightbox?.addEventListener('click',e=>{if(e.target===lightbox)lightbox.close();}
  reduce.addEventListener?.('change',sync);
  document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();else sync();});
 })();
+
+
+// Widget de SIA: abrir/cerrar la ventana sin enviar mensajes automáticamente.
+(function setupSiaWidget(){
+ const panel=document.getElementById('sia-panel');
+ const launcher=document.getElementById('sia-launcher');
+ const close=document.getElementById('sia-close');
+ const start=document.getElementById('sia-start');
+ if(!panel||!launcher||!start)return;
+ const raw=String(window.COLE_CONFIG?.whatsappNumber||'').trim();
+ const number=raw.replace(/\D/g,'');
+ if(number.length>=10 && number.length<=15){
+   const text=encodeURIComponent('Hola, SIA. Quisiera hacer una consulta.');
+   start.href=`https://wa.me/${number}?text=${text}`;
+ }else{
+   start.removeAttribute('href');
+   start.setAttribute('aria-disabled','true');
+   start.title='Pendiente de configurar el número de WhatsApp institucional';
+   start.addEventListener('click',e=>e.preventDefault());
+ }
+ function toggle(open){
+   panel.hidden=!open;
+   panel.setAttribute('aria-hidden',String(!open));
+   launcher.setAttribute('aria-expanded',String(open));
+   launcher.setAttribute('aria-label',open?'Cerrar chat de SIA':'Abrir chat de SIA por WhatsApp');
+   if(open)close?.focus();
+   else launcher.focus();
+ }
+ launcher.addEventListener('click',()=>toggle(panel.hidden));
+ close?.addEventListener('click',()=>toggle(false));
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)toggle(false);});
+ document.addEventListener('pointerdown',e=>{if(!panel.hidden&&!e.target.closest('#sia-widget'))toggle(false);});
+})();
